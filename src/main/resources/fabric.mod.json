@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "transparent",
+  "version": "${version}",
+  "name": "Transparent",
+  "description": "Allows blocks and paintings to be transparent!",
+  "authors": [
+    "Trikzon"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/transparent",
+    "sources": "https://gitlab.com/Trikzon/Transparent"
+  },
+  "license": "LGPL-3.0-or-later",
+  "icon": "assets/transparent/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "io.github.trikzon.transparent.Transparent"
+    ]
+  },
+  "mixins": [
+    "transparent.mixins.json"
+  ],
+  "custom": {
+    "modmenu:clientsideOnly": true
+  }
+}
