@@ -14,13 +14,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * File: BlockMixin.java
- * Date: 2020-04-20 "1.15.2-1.0.0"
+ * Date: 2020-04-20 "1.15.2-1.1.1"
  * Revision:
  * Author: Trikzon
  * =========================================================================== */
 package io.github.trikzon.transparent.mixin;
 
 import io.github.trikzon.transparent.ISetTransparent;
+import io.github.trikzon.transparent.Transparent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -77,7 +78,7 @@ public abstract class BlockMixin implements ISetTransparent
     private void transparent_isSideInvisible(
             BlockState state, BlockState neighbor, Direction facing, CallbackInfoReturnable<Boolean> cir)
     {
-        if (defaultOpaque != null && isGlass)
+        if (defaultOpaque != null && isGlass && !opaque)
         {
             cir.setReturnValue(neighbor.getBlock() == state.getBlock());
         }
@@ -90,7 +91,7 @@ public abstract class BlockMixin implements ISetTransparent
         {
             defaultOpaque = this.opaque;
         }
-        this.opaque = !transparent;
+        this.opaque = !Transparent.BANNED_BLOCKS.contains(this) ? !transparent : true;
         this.material = Material.GLASS;
         this.isGlass = isGlass;
         this.getDefaultState().initShapeCache();

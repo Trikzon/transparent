@@ -14,7 +14,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * File: Transparent.java
- * Date: 2020-04-20 "1.15.2-1.0.0"
+ * Date: 2020-04-20 "1.15.2-1.1.1"
  * Revision:
  * Author: Trikzon
  * =========================================================================== */
@@ -27,6 +27,7 @@ import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.resource.Resource;
@@ -57,6 +58,8 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
 
     public static ConfigBean CONFIG = new ConfigBean();
 
+    public static ArrayList<Block> BANNED_BLOCKS = new ArrayList<>();
+
     @Override
     public void onInitializeClient()
     {
@@ -68,8 +71,8 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
             try (FileWriter file = new FileWriter(MOD_CONFIG_FILE))
             {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                CONFIG.blocks.put("minecraft:stone", new ConfigBean.BlocksBean());
-                CONFIG.blocks.put("minecraft:sand", new ConfigBean.BlocksBean());
+                CONFIG.blocks.put("minecraft:example1", new ConfigBean.BlocksBean());
+                CONFIG.blocks.put("minecraft:example2", new ConfigBean.BlocksBean());
                 file.write(gson.toJson(CONFIG));
                 file.flush();
             } catch (IOException e)
@@ -77,6 +80,14 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
                 LOGGER.error("Failed to create default config file.");
             }
         }
+        BANNED_BLOCKS.add(Blocks.STONE);
+        BANNED_BLOCKS.add(Blocks.SAND);
+        BANNED_BLOCKS.add(Blocks.GRAVEL);
+        BANNED_BLOCKS.add(Blocks.DIRT);
+        BANNED_BLOCKS.add(Blocks.ANDESITE);
+        BANNED_BLOCKS.add(Blocks.DIORITE);
+        BANNED_BLOCKS.add(Blocks.GRANITE);
+        BANNED_BLOCKS.add(Blocks.NETHERRACK);
     }
 
     @Override
@@ -138,7 +149,7 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
                         else
                             BLOCK_LAYERS.put(block, RenderLayer.getSolid());
                         ((ISetTransparent) block).reset();
-                        LOGGER.info("Deregistered " + Registry.BLOCK.getId(block) + " as transparent");
+                        LOGGER.info("Deregistered " + Registry.BLOCK.getId(block));
                     });
             CHANGED_BLOCK_LAYERS.clear();
             CONFIG.blocks.keySet().stream().filter(s -> Registry.BLOCK.containsId(new Identifier(s)))
@@ -146,16 +157,19 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
                         Identifier id = new Identifier(s);
                         Block block = Registry.BLOCK.get(id);
 
-                        if (CONFIG.blocks.get(s).isTranslucent)
+                        if (true)
                         {
-                            BLOCK_LAYERS.put(block, RenderLayer.getTranslucent());
-                        } else if (CONFIG.blocks.get(s).isTransparent)
-                        {
-                            BLOCK_LAYERS.put(block, RenderLayer.getCutout());
+                            if (CONFIG.blocks.get(s).isTranslucent)
+                            {
+                                BLOCK_LAYERS.put(block, RenderLayer.getTranslucent());
+                            } else if (CONFIG.blocks.get(s).isTransparent)
+                            {
+                                BLOCK_LAYERS.put(block, RenderLayer.getCutout());
+                            }
+                            CHANGED_BLOCK_LAYERS.add(block);
+                            ((ISetTransparent) block).setTransparent(CONFIG.blocks.get(s).isTransparent, CONFIG.blocks.get(s).isGlass);
+                            LOGGER.info("Registered " + id);
                         }
-                        CHANGED_BLOCK_LAYERS.add(block);
-                        ((ISetTransparent) block).setTransparent(CONFIG.blocks.get(s).isTransparent, CONFIG.blocks.get(s).isGlass);
-                        LOGGER.info("Registered " + id + " as transparent");
                     });
             if (CONFIG.entities.painting)
             {
