@@ -58,8 +58,6 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
 
     public static ConfigBean CONFIG = new ConfigBean();
 
-    public static ArrayList<Block> BANNED_BLOCKS = new ArrayList<>();
-
     @Override
     public void onInitializeClient()
     {
@@ -80,14 +78,6 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
                 LOGGER.error("Failed to create default config file.");
             }
         }
-        BANNED_BLOCKS.add(Blocks.STONE);
-        BANNED_BLOCKS.add(Blocks.SAND);
-        BANNED_BLOCKS.add(Blocks.GRAVEL);
-        BANNED_BLOCKS.add(Blocks.DIRT);
-        BANNED_BLOCKS.add(Blocks.ANDESITE);
-        BANNED_BLOCKS.add(Blocks.DIORITE);
-        BANNED_BLOCKS.add(Blocks.GRANITE);
-        BANNED_BLOCKS.add(Blocks.NETHERRACK);
     }
 
     @Override
@@ -186,6 +176,7 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
         public static class EntitiesBean
         {
             public boolean painting = false;
+            public boolean itemframe = false;
         }
 
         public static class BlocksBean

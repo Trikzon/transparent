@@ -44,9 +44,6 @@ public abstract class BlockMixin implements ISetTransparent
 
     @Shadow public abstract BlockState getDefaultState();
 
-    @Mutable
-    @Shadow @Final protected Material material;
-
     private Boolean defaultOpaque = null;
     private boolean isGlass = false;
 
@@ -91,8 +88,12 @@ public abstract class BlockMixin implements ISetTransparent
         {
             defaultOpaque = this.opaque;
         }
-        this.opaque = !Transparent.BANNED_BLOCKS.contains(this) ? !transparent : true;
-        this.material = Material.GLASS;
+        this.opaque = !transparent;
+
+        // I don't remember why i did this... but it's probably bad.
+        // If a bug comes out of not doing this, look here:
+//        this.material = Material.GLASS;
+
         this.isGlass = isGlass;
         this.getDefaultState().initShapeCache();
     }

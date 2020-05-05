@@ -7,7 +7,8 @@
   ],
   "client": [
     "PaintingEntityRendererMixin",
-    "BlockMixin"
+    "BlockMixin",
+    "ItemFrameEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
