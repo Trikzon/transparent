@@ -3,20 +3,20 @@
   "id": "transparent",
   "version": "${version}",
   "name": "Transparent",
-  "description": "Allows blocks and paintings to be transparent!",
+  "description": "Allows paintings and item frames to be transparent!",
   "authors": [
     "Trikzon"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/transparent",
-    "sources": "https://gitlab.com/Trikzon/Transparent"
+    "sources": "https://github.com/Trikzon/Transparent"
   },
   "license": "LGPL-3.0-or-later",
   "icon": "assets/transparent/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.github.trikzon.transparent.Transparent"
+      "com.trikzon.transparent.Transparent"
     ]
   },
   "mixins": [

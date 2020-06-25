@@ -1,13 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.github.trikzon.transparent.mixin",
+  "package": "com.trikzon.transparent.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
     "PaintingEntityRendererMixin",
-    "BlockMixin",
     "ItemFrameEntityRendererMixin"
   ],
   "injectors": {
