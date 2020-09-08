@@ -22,6 +22,9 @@
   "mixins": [
     "transparent.mixins.json"
   ],
+  "depends": {
+    "fabric": "*"
+  },
   "custom": {
     "modmenu:clientsideOnly": true
   }

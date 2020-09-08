@@ -1,12 +1,3 @@
-/*
- * Copyright 2020 Trikzon
- *
- * Transparent is free software; you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * https://www.gnu.org/licenses/
- */
 package com.trikzon.transparent;
 
 import com.google.gson.Gson;
@@ -14,26 +5,18 @@ import com.google.gson.GsonBuilder;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.registry.Registry;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -106,9 +89,9 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
         // Keeping this here only for compatibility
         public static class BlocksBean
         {
-            public boolean isTransparent = false;
-            public boolean isTranslucent = false;
-            public boolean isGlass = false;
+//            public boolean isTransparent = false;
+//            public boolean isTranslucent = false;
+//            public boolean isGlass = false;
         }
     }
 
@@ -126,8 +109,8 @@ public class Transparent implements ClientModInitializer, IdentifiableResourceRe
             try (FileWriter file = new FileWriter(MOD_CONFIG_FILE))
             {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                CONFIG.blocks.put("minecraft:example1", new ConfigBean.BlocksBean());
-                CONFIG.blocks.put("minecraft:example2", new ConfigBean.BlocksBean());
+                CONFIG.entities.painting = false;
+                CONFIG.entities.itemframe = false;
                 file.write(gson.toJson(CONFIG));
                 file.flush();
             } catch (IOException e)
