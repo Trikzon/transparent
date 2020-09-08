@@ -11,7 +11,7 @@
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/transparent",
     "sources": "https://github.com/Trikzon/Transparent"
   },
-  "license": "LGPL-3.0-or-later",
+  "license": "MIT",
   "icon": "assets/transparent/icon.png",
   "environment": "client",
   "entrypoints": {
