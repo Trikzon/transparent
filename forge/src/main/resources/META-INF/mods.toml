@@ -13,7 +13,7 @@ displayURL="https://github.com/trikzon/transparent"
 #credits=""
 authors="Trikzon"
 description='''
-Allows resource packs to make entities support transparency!
+Allows resource packs to make entities support transparency.
 '''
 
 [[dependencies.transparent]]

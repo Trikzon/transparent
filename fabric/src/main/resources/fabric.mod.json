@@ -3,7 +3,7 @@
     "id": "transparent",
     "version": "${version}",
     "name": "Transparent",
-    "description": "Allows resource packs to make entities support transparency!",
+    "description": "Allows resource packs to make entities support transparency.",
     "authors": [
         "Trikzon"
     ],
