@@ -1,0 +1,38 @@
+{
+    "schemaVersion": 1,
+    "id": "transparent",
+    "version": "${version}",
+    "name": "Transparent",
+    "description": "Allows paintings and item frames to be transparent!",
+    "authors": [
+        "Trikzon"
+    ],
+    "contact": {
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/transparent-fabric",
+        "sources": "https://github.com/trikzon/transparent"
+    },
+    "license": "MIT",
+    "icon": "assets/transparent/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "client": [
+            "com.trikzon.transparent.fabric.client.TransparentClientFabric"
+        ]
+    },
+    "mixins": [
+        "transparent.client.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.7.4",
+        "fabric": "*",
+        "minecraft": "1.16.x"
+    },
+    "suggests": {
+        "flamingo": "*"
+    },
+    "custom": {
+        "modmenu:api": false,
+        "modmenu:clientsideOnly": true,
+        "modmenu:parent": ""
+    }
+}

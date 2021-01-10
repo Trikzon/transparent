@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[35,)"
+license="MIT"
+issueTrackerURL="https://github.com/trikzon/architect-example-mod/issues"
+
+[[mods]]
+modId="modid"
+version="${file.jarVersion}"
+displayName="Example Mod"
+#updateJSONURL=""
+displayURL="https://github.com/trikzon/architect-example-mod"
+#logoFile=""
+credits="shedaniel for architectury"
+authors="Trikzon"
+description='''
+'''
+
+[[dependencies.modid]]
+    modId="forge"
+    mandatory=true
+    versionRange="[35,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.modid]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.2,)"
+    ordering="NONE"
+    side="BOTH"

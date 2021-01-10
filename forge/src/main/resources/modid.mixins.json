@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.trikzon.modid.forge.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "refmap": "modid.mixins.refmap.json",
+    "mixins": [
+        "ExampleMixin"
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

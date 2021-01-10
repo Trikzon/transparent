@@ -1,0 +1,57 @@
+plugins {
+    id "fabric-loom"
+    id "com.github.johnrengelman.shadow" version "5.0.0"
+}
+
+version = project.version + "-fabric"
+
+configurations {
+    shadow
+}
+
+dependencies {
+    minecraft("com.mojang:minecraft:${rootProject.architect.minecraft}")
+    mappings(minecraft.officialMojangMappings())
+    modCompile("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+
+    if (rootProject.hasProperty('fabric_api_version')) {
+        modCompile("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+    }
+    if (rootProject.hasProperty('rei_version')) {
+        modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
+        modRuntime "me.shedaniel:RoughlyEnoughItems:${rootProject.rei_version}"
+    }
+    if (rootProject.hasProperty('mod_menu_version')) {
+        modRuntime "io.github.prospector:modmenu:${rootProject.mod_menu_version}"
+    }
+
+    compile(project(":common")) {
+        transitive = false
+    }
+    shadow(project(":common")) {
+        transitive = false
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadow]
+    classifier "shadow"
+}
+
+remapJar {
+    dependsOn(shadowJar)
+    input.set(shadowJar.archivePath)
+}
+
+processResources {
+    inputs.property "version", rootProject.mod_version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include "fabric.mod.json"
+        expand "version": rootProject.mod_version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "fabric.mod.json"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.trikzon.transparent.fabric.client.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "client": [
+        "PaintingRendererMixin",
+        "ItemFrameRendererMixin",
+        "BeaconRendererMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
