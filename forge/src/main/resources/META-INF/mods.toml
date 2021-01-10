@@ -1,27 +1,28 @@
 modLoader="javafml"
 loaderVersion="[35,)"
 license="MIT"
-issueTrackerURL="https://github.com/trikzon/architect-example-mod/issues"
+issueTrackerURL="https://github.com/trikzon/transparent/issues"
 
 [[mods]]
-modId="modid"
+modId="transparent"
 version="${file.jarVersion}"
-displayName="Example Mod"
+displayName="Transparent"
 #updateJSONURL=""
-displayURL="https://github.com/trikzon/architect-example-mod"
+displayURL="https://github.com/trikzon/transparent"
 #logoFile=""
-credits="shedaniel for architectury"
+#credits=""
 authors="Trikzon"
 description='''
+Allows resource packs to make entities support transparency!
 '''
 
-[[dependencies.modid]]
+[[dependencies.transparent]]
     modId="forge"
     mandatory=true
     versionRange="[35,)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.modid]]
+[[dependencies.transparent]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.16.2,)"

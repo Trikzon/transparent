@@ -28,7 +28,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            arg "-mixin.config=" + rootProject.mod_id + ".mixins.json"
+            arg "-mixin.config=" + rootProject.mod_id + ".client.mixins.json"
             mods {
                 examplemod {
                     source sourceSets.main
@@ -38,7 +38,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=" + rootProject.mod_id + ".mixins.json"
+            arg "-mixin.config=" + rootProject.mod_id + ".client.mixins.json"
             mods {
                 examplemod {
                     source sourceSets.main
