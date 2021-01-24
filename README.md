@@ -1,7 +1,6 @@
 # Transparent
 
 
-[![FAPI](https://img.shields.io/badge/api-fabric-orange.svg?style=flat-square)](https://www.curseforge.com/minecraft/mc-mods/fabric-api/files)
 [![GitHub Releases](https://img.shields.io/github/v/release/trikzon/transparent?include_prereleases&style=flat-square)](https://github.com/trikzon/transparent/releases)
 [![](http://cf.way2muchnoise.eu/full_377582_fabric.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent-fabric)
 [![](http://cf.way2muchnoise.eu/full_410507_forge.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent-forge)
@@ -48,11 +47,3 @@ Place in your resource pack in `/assets/transparent/transparent.json`.
     "beacon_beam": false
 }
 ```
-
-## Dependencies
-
-### Fabric
-
-- [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api/files)
-
-### Forge
