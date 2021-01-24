@@ -11,10 +11,6 @@ architectury {
 }
 
 repositories {
-//    maven {
-//        name = "Mod Menu Maven"
-//        url = "https://maven.fabricmc.net/io/github/prospector/modmenu/"
-//    }
     jcenter()
 }
 
