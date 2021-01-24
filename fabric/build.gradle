@@ -1,35 +1,49 @@
 plugins {
-    id "fabric-loom"
     id "com.github.johnrengelman.shadow" version "5.0.0"
 }
-
-version = project.version + "-fabric"
 
 configurations {
     shadow
 }
 
+architectury {
+    platformSetupLoomIde()
+}
+
+repositories {
+//    maven {
+//        name = "Mod Menu Maven"
+//        url = "https://maven.fabricmc.net/io/github/prospector/modmenu/"
+//    }
+    jcenter()
+}
+
 dependencies {
-    minecraft("com.mojang:minecraft:${rootProject.architect.minecraft}")
-    mappings(minecraft.officialMojangMappings())
+    minecraft("com.mojang:minecraft:${rootProject.minecraft_version}")
+    mappings("net.fabricmc:yarn:${rootProject.yarn_version}:v2")
     modCompile("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
 
     if (rootProject.hasProperty('fabric_api_version')) {
         modCompile("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
-    }
-    if (rootProject.hasProperty('rei_version')) {
-        modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
-        modRuntime "me.shedaniel:RoughlyEnoughItems:${rootProject.rei_version}"
-    }
-    if (rootProject.hasProperty('mod_menu_version')) {
-        modRuntime "io.github.prospector:modmenu:${rootProject.mod_menu_version}"
+        include(fabricApi.module("fabric-resource-loader-v0", rootProject.fabric_api_version))
     }
 
-    compile(project(":common")) {
+    compileOnly(project(path: ":common")) {
         transitive = false
     }
-    shadow(project(":common")) {
+    runtimeOnly(project(path: ":common", configuration: "transformDevelopmentFabric")) {
         transitive = false
+    }
+    shadow(project(path: ":common", configuration: "transformProductionFabric")) {
+        transitive = false
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
     }
 }
 
@@ -41,17 +55,5 @@ shadowJar {
 remapJar {
     dependsOn(shadowJar)
     input.set(shadowJar.archivePath)
-}
-
-processResources {
-    inputs.property "version", rootProject.mod_version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
-        expand "version": rootProject.mod_version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
-    }
+    classifier "fabric"
 }
