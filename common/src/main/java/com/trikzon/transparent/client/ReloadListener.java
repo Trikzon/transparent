@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -28,10 +29,14 @@ public class ReloadListener implements ResourceReloadListener {
             // Read config file on reload
             if (manager.containsResource(configLocation)) {
                 try {
-                    Resource resource = manager.getResource(configLocation);
-                    String configContents = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
+                    ConfigBean config = new ConfigBean();
+                    List<Resource> resources = manager.getAllResources(configLocation);
+                    for (Resource resource : resources) {
+                        String configContents = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
+                        config.or(gson.fromJson(configContents, ConfigBean.class));
+                    }
+                    Transparent.CONFIG = config;
 
-                    Transparent.CONFIG = gson.fromJson(configContents, ConfigBean.class);
                 } catch (IOException e) {
                     Transparent.LOGGER.error("Error reading config file from resource pack.");
                     e.printStackTrace();
