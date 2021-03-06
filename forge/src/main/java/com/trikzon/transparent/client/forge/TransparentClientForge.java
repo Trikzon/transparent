@@ -1,4 +1,4 @@
-package com.trikzon.transparent.forge.client;
+package com.trikzon.transparent.client.forge;
 
 import com.trikzon.transparent.client.ReloadListener;
 import net.minecraft.client.MinecraftClient;

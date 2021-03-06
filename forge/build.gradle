@@ -3,30 +3,32 @@ plugins {
 }
 
 configurations {
-    shadow
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
 }
 
 architectury {
     platformSetupLoomIde()
+    forge()
 }
 
 loom {
-    mixinConfigs = ["transparent.client.mixins.json"]
     useFabricMixin = true
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${rootProject.minecraft_version}")
-    mappings("net.fabricmc:yarn:${rootProject.yarn_version}:v2")
-    forge("net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}")
+    forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
 
-    compileOnly(project(path: ":common")) {
+    // Remove the following line to gain access to JEI's API in code.
+//    modCompileOnly "mezz.jei:jei-${rootProject.jei_mc_version}:${rootProject.jei_version}:api"
+    modRuntime "mezz.jei:jei-${rootProject.jei_mc_version}:${rootProject.jei_version}"
+
+    implementation(project(path: ":common")) {
         transitive = false
     }
-    runtimeOnly(project(path: ":common", configuration: "transformDevelopmentForge")) {
+    developmentForge(project(path: ":common")) {
         transitive = false
     }
-    shadow(project(path: ":common", configuration: "transformProductionForge")) {
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) {
         transitive = false
     }
 }
@@ -42,20 +44,55 @@ processResources {
 shadowJar {
     exclude "fabric.mod.json"
 
-    configurations = [project.configurations.shadow]
-    classifier "shadow"
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
 }
 
 remapJar {
-    dependsOn(shadowJar)
-    input.set(shadowJar.archivePath)
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
     classifier "forge"
 }
 
-//jar {
-//    manifest {
-//        attributes([
-//                "MixinConfigs": "transparent.client.mixins.json",
-//        ])
-//    }
-//}
+jar {
+    classifier "dev"
+}
+
+java {
+    withSourcesJar()
+}
+
+sourcesJar {
+    def commonSources = project(":common").remapSourcesJar
+    dependsOn commonSources
+    from zipTree(commonSources.output)
+}
+
+publishing {
+    publications {
+        mavenForge(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            // add all the jars that should be included when publishing to maven
+            artifact(remapJar) {
+                classifier null
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        if (System.getenv("MODMAVEN_API_KEY") != null) {
+            maven {
+                name = "modmaven"
+                url = "http://modmaven.dev/artifactory/local-releases"
+                credentials {
+                    username = "dodogang"
+                    password = System.getenv("MODMAVEN_API_KEY")
+                }
+            }
+        }
+    }
+}

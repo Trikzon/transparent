@@ -3,34 +3,31 @@ plugins {
 }
 
 configurations {
-    shadow
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
 }
 
 architectury {
     platformSetupLoomIde()
-}
-
-repositories {
-    jcenter()
+    fabric()
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${rootProject.minecraft_version}")
-    mappings("net.fabricmc:yarn:${rootProject.yarn_version}:v2")
-    modCompile("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
 
-    if (rootProject.hasProperty('fabric_api_version')) {
-        modCompile("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
-        include(fabricApi.module("fabric-resource-loader-v0", rootProject.fabric_api_version))
-    }
+    modRuntime("com.terraformersmc:modmenu:${rootProject.mod_menu_version}")
 
-    compileOnly(project(path: ":common")) {
+    // Remove the following line to gain access to REI's API in code.
+//    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
+    modRuntime "me.shedaniel:RoughlyEnoughItems:${rootProject.rei_version}"
+
+    implementation(project(path: ":common")) {
         transitive = false
     }
-    runtimeOnly(project(path: ":common", configuration: "transformDevelopmentFabric")) {
+    developmentFabric(project(path: ":common")) {
         transitive = false
     }
-    shadow(project(path: ":common", configuration: "transformProductionFabric")) {
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) {
         transitive = false
     }
 }
@@ -44,12 +41,55 @@ processResources {
 }
 
 shadowJar {
-    configurations = [project.configurations.shadow]
-    classifier "shadow"
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
 }
 
 remapJar {
-    dependsOn(shadowJar)
-    input.set(shadowJar.archivePath)
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
     classifier "fabric"
+}
+
+jar {
+    classifier "dev"
+}
+
+java {
+    withSourcesJar()
+}
+
+sourcesJar {
+    def commonSources = project(":common").remapSourcesJar
+    dependsOn commonSources
+    from zipTree(commonSources.output)
+}
+
+publishing {
+    publications {
+        mavenFabric(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            // add all the jars that should be included when publishing to maven
+            artifact(remapJar) {
+                classifier null
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        if (System.getenv("MODMAVEN_API_KEY") != null) {
+            maven {
+                name = "modmaven"
+                url = "http://modmaven.dev/artifactory/local-releases"
+                credentials {
+                    username = "dodogang"
+                    password = System.getenv("MODMAVEN_API_KEY")
+                }
+            }
+        }
+    }
 }

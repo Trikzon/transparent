@@ -16,7 +16,7 @@
     "environment": "*",
     "entrypoints": {
         "client": [
-            "com.trikzon.transparent.fabric.client.TransparentClientFabric"
+            "com.trikzon.transparent.client.fabric.TransparentClientFabric"
         ]
     },
     "mixins": [
@@ -31,7 +31,6 @@
     },
     "custom": {
         "modmenu:api": false,
-        "modmenu:clientsideOnly": true,
-        "modmenu:parent": ""
+        "modmenu:clientsideOnly": true
     }
 }

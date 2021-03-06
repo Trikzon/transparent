@@ -1,4 +1,4 @@
-package com.trikzon.transparent.fabric.client;
+package com.trikzon.transparent.client.fabric;
 
 import com.trikzon.transparent.client.ReloadListener;
 import net.fabricmc.api.ClientModInitializer;

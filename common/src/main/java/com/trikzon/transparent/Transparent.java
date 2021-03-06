@@ -8,6 +8,4 @@ public class Transparent {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static ConfigBean CONFIG = new ConfigBean();
-
-
 }
