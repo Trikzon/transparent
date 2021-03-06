@@ -13,14 +13,11 @@ architectury {
 
 loom {
     useFabricMixin = true
+    mixinConfigs = ["transparent.client.mixins.json"]
 }
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
-
-    // Remove the following line to gain access to JEI's API in code.
-//    modCompileOnly "mezz.jei:jei-${rootProject.jei_mc_version}:${rootProject.jei_version}:api"
-    modRuntime "mezz.jei:jei-${rootProject.jei_mc_version}:${rootProject.jei_version}"
 
     implementation(project(path: ":common")) {
         transitive = false
