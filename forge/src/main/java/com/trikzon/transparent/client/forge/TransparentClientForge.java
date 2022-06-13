@@ -1,15 +1,15 @@
 package com.trikzon.transparent.client.forge;
 
-import com.trikzon.transparent.client.ReloadListener;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ReloadableResourceManager;
-import net.minecraft.resource.ResourceManager;
+import com.trikzon.transparent.client.TransparentConfigReloadListener;
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
+import net.minecraft.server.packs.resources.ResourceManager;
 
 public class TransparentClientForge {
     public TransparentClientForge() {
-        ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
+        ResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
         if (resourceManager instanceof ReloadableResourceManager) {
-            ((ReloadableResourceManager)resourceManager).registerListener(new ReloadListener());
+            ((ReloadableResourceManager) resourceManager).registerReloadListener(new TransparentConfigReloadListener());
         }
     }
 }

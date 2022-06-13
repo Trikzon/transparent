@@ -1,6 +1,6 @@
 plugins {
-    id "architectury-plugin" version "3.0.95"
-    id "forgified-fabric-loom" version "0.6.74" apply false
+    id "architectury-plugin" version "3.4-SNAPSHOT"
+    id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
 }
 
 architectury {
@@ -8,21 +8,18 @@ architectury {
 }
 
 subprojects {
-    apply plugin: "forgified-fabric-loom"
+    apply plugin: "dev.architectury.loom"
 
-    // Silences mojang mappings, if enabled. See dependencies block just below this.
-//     loom {
-//         silentMojangMappingsLicense()
-//     }
+    loom {
+        silentMojangMappingsLicense()
+    }
 
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-
         // The following line declares the mojmap mappings, you may use other mappings as well
-//        mappings loom.officialMojangMappings()
-
+        mappings loom.officialMojangMappings()
         // The following line declares the yarn mappings you may select this one as well.
-        mappings "net.fabricmc:yarn:${rootProject.yarn_version}"
+        // mappings "net.fabricmc:yarn:1.18.2+build.3:v2"
     }
 }
 
@@ -36,26 +33,16 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
-        // Mod Menu Maven
-        maven { url = "https://maven.terraformersmc.com/releases/" }
-
-        // JEI Maven
-        maven { url = "https://dvs1.progwml6.com/files/maven/" }
-
-        // Mod Maven Maven (JEI backup)
-        maven { url = "https://modmaven.k-4u.nl" }
+        // Add repositories to retrieve artifacts from in here.
+        // You should only use this when depending on other mods because
+        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+        // for more information about repositories.
     }
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-
-        // The Minecraft launcher currently installs Java 8 for users, so your mod probably wants to target Java 8 too
-        // JDK 9 introduced a new way of specifying this that will make sure no newer classes or methods are used.
-        // We'll use that if it's available, but otherwise we'll use the older option.
-        def targetVersion = 8
-        if (JavaVersion.current().isJava9Compatible()) {
-            options.release = targetVersion
-        }
+        options.release = 17
     }
 
     java {

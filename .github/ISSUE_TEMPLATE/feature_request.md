@@ -1,26 +1,25 @@
 ---
 name: Feature Request
-about: Create a report to help us improve
+about: Suggest a fully developed feature
 title: ''
-labels: bug
+labels: feature
 assignees: ''
 
 ---
+<!--- Provide a general summary of the feature in the Title above -->
 
-## Is there a related problem?
-<!--- DELETE IF NOT APPLICABLE -->
+## Feature Description
+<!--- Tell us what should happen -->
 
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
-## Describe the solution you'd like
+## Context and Inspiration
+<!--- What version are you in? Will this feature be used with other mods? -->
+<!--- What inspired you to suggest this idea? -->
 
-A clear and concise description of what you want to happen.
 
-## Describe alternatives you have considered
-<!--- DELETE IF NOT APPLICABLE -->
+## Does This Add New Behavior or Change Current Features?
 
-A clear and concise description of any alternative solutions or features you've considered.
 
-## Additional Context
-
-Add any other context or screenshots about the feature request here.
+## Have you already discussed the feature using the discussion feature?
+<!--- Features should first be discussed so they can be fully developed. -->
+<!--- https://github.com/dodogang/crumbs/discussions/new -->

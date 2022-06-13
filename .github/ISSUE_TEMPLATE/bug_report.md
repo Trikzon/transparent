@@ -1,12 +1,11 @@
 ---
 name: Bug Report
-about: Create a report to help us improve
+about: Report a bug to help us improve
 title: ''
 labels: bug
 assignees: ''
 
 ---
-
 <!--- Provide a general summary of the issue in the Title above -->
 
 ## Expected Behavior
@@ -27,5 +26,6 @@ assignees: ''
 4.
 
 ## Context (Environment)
-<!--- How has this issue affected you? What are you trying to accomplish?  What version are you in? Are you using any mods? -->
+<!--- How has this issue affected you? What are you trying to accomplish? -->
+<!--- What version are you in? Are you using any mods? -->
 <!--- Providing context helps us come up with a solution that is most useful in the real world -->

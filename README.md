@@ -1,6 +1,5 @@
 # Transparent
 
-
 [![GitHub Releases](https://img.shields.io/github/v/release/trikzon/transparent?include_prereleases&style=flat-square)](https://github.com/trikzon/transparent/releases)
 [![](http://cf.way2muchnoise.eu/full_377582_fabric.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent-fabric)
 [![](http://cf.way2muchnoise.eu/full_410507_forge.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent-forge)
@@ -47,3 +46,5 @@ Place in your resource pack in `/assets/transparent/transparent.json`.
     "beacon_beam": false
 }
 ```
+
+[<img src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://ko-fi.com/trikzon)

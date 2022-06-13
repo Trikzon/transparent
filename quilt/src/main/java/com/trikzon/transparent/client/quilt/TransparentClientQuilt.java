@@ -1,26 +1,27 @@
-package com.trikzon.transparent.client.fabric;
+package com.trikzon.transparent.client.quilt;
 
 import com.trikzon.transparent.client.TransparentConfigReloadListener;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
+import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import org.quiltmc.qsl.resource.loader.api.ResourceLoader;
+import org.quiltmc.qsl.resource.loader.api.reloader.IdentifiableResourceReloader;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-public class TransparentClientFabric implements ClientModInitializer {
+public class TransparentClientQuilt implements ClientModInitializer {
     @Override
-    public void onInitializeClient() {
-        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(
-                new IdentifiableResourceReloadListener() {
+    public void onInitializeClient(ModContainer mod) {
+        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(
+                new IdentifiableResourceReloader() {
                     private final TransparentConfigReloadListener reloadListener = new TransparentConfigReloadListener();
 
                     @Override
-                    public ResourceLocation getFabricId() {
+                    public ResourceLocation getQuiltId() {
                         return new ResourceLocation(reloadListener.getName());
                     }
 
