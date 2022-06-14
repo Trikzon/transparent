@@ -17,7 +17,7 @@ Entities with a '*' are disabled by default.
 - Item Frame
 - Beacon Beam*
 
-Want an entity added to that list? Contact me on discord: https://discord.gg/aqXkvbJ
+Want an entity added to that list? Contact me on discord and let me know why you want it: https://discord.gg/aqXkvbJ
 
 ## Config
 
