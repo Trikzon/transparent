@@ -36,7 +36,6 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
                     List<Resource> resources = resourceManager.getResources(configLocation);
                     for (Resource resource : resources) {
                         String configContents = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
-                        System.out.println(configContents);
                         config.or(gson.fromJson(configContents, ConfigBean.class));
                     }
                     Transparent.CONFIG = config;
