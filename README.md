@@ -5,7 +5,7 @@
 
 Allows resource packs to make entities support transparency.
 
-![Promo Image](https://i.imgur.com/C0PElij.png)
+![Promo Image](promo.png)
 
 Resource pack in above image: [BwW Texturepack](https://www.curseforge.com/minecraft/texture-packs/bww-texturepack)
 
