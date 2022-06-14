@@ -30,12 +30,12 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
             ResourceLocation configLocation = new ResourceLocation(Transparent.MOD_ID, Transparent.MOD_ID + ".json");
             Gson gson = new Gson();
 
-            if (resourceManager.hasResource(configLocation)) {
+            if (resourceManager.getResource(configLocation).isPresent()) {
                 try {
                     ConfigBean config = ConfigBean.empty();
-                    List<Resource> resources = resourceManager.getResources(configLocation);
+                    List<Resource> resources = resourceManager.getResourceStack(configLocation);
                     for (Resource resource : resources) {
-                        String configContents = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
+                        String configContents = IOUtils.toString(resource.open(), StandardCharsets.UTF_8);
                         config.or(gson.fromJson(configContents, ConfigBean.class));
                     }
                     Transparent.CONFIG = config;
