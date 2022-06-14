@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "com.trikzon.transparent.mixin",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_8",
   "minVersion": "0.8",
   "client": [
     "client.BeaconRendererMixin",

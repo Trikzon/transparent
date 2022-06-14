@@ -10,7 +10,7 @@ public class ConfigBean {
     public boolean beaconBeam = false;
 
     public static ConfigBean empty() {
-        var result = new ConfigBean();
+        ConfigBean result = new ConfigBean();
         result.painting = false;
         result.itemFrame = false;
         result.beaconBeam = false;
