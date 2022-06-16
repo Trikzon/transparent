@@ -1,10 +1,8 @@
 # Transparent
 
-[![](http://cf.way2muchnoise.eu/full_377582.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent)
+[![](http://cf.way2muchnoise.eu/full_377582_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent)
+[![](https://modrinth-utils.vercel.app/api/badge/downloads/?id=transparent&logo=true)](https://modrinth.com/mod/transparent)
 [![](http://cf.way2muchnoise.eu/versions/377582.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent)
-
-![](https://modrinth-utils.vercel.app/api/badge/downloads/?id=transparent&logo=true)
-![](https://modrinth-utils.vercel.app/api/badge/versions/?id=transparent&logo=true)
 
 Allows resource packs to make entities support transparency.
 
