@@ -1,5 +1,6 @@
 package com.trikzon.transparent.client.quilt;
 
+import com.trikzon.transparent.client.TransparentClient;
 import com.trikzon.transparent.client.TransparentConfigReloadListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -16,6 +17,8 @@ import java.util.concurrent.Executor;
 public class TransparentClientQuilt implements ClientModInitializer {
     @Override
     public void onInitializeClient(ModContainer mod) {
+        TransparentClient.initialize();
+
         ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(
                 new IdentifiableResourceReloader() {
                     private final TransparentConfigReloadListener reloadListener = new TransparentConfigReloadListener();
