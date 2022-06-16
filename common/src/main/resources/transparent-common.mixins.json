@@ -6,7 +6,9 @@
   "client": [
     "client.BeaconRendererMixin",
     "client.ItemFrameRendererMixin",
-    "client.PaintingRendererMixin"
+    "client.PaintingRendererMixin",
+    "client.TextureAtlasHolderAccessor",
+    "client.TextureAtlasMixin"
   ],
   "mixins": [
   ],
