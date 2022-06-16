@@ -1,5 +1,6 @@
 package com.trikzon.transparent.client.fabric;
 
+import com.trikzon.transparent.client.TransparentClient;
 import com.trikzon.transparent.client.TransparentConfigReloadListener;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -15,6 +16,8 @@ import java.util.concurrent.Executor;
 public class TransparentClientFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        TransparentClient.initialize();
+
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(
                 new IdentifiableResourceReloadListener() {
                     private final TransparentConfigReloadListener reloadListener = new TransparentConfigReloadListener();
