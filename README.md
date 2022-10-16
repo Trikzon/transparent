@@ -12,11 +12,10 @@ Resource pack in above image: [BwW Texturepack](https://www.curseforge.com/minec
 
 ## Supported Entities:
 
-Entities with a '*' are disabled by default.
-
 - Painting
 - Item Frame
-- Beacon Beam*
+- End Crystal
+- Beacon Beam (disabled by default)
 
 Want an entity added to that list? Contact me on discord and let me know why you want it: https://discord.gg/aqXkvbJ
 
@@ -28,10 +27,11 @@ If you only want the defaults, you don't need a configuration file.
 
 Note: Defaults may change in future updates if
 
-| Entity      | Enabled By Default | Reason |
-| ----------- | ------------------ | ------ |
-| Painting    | true               |
-| Item Frame  | true               |
+| Entity      | Enabled By Default | Reason                                          |
+|-------------|--------------------|-------------------------------------------------|
+| Painting    | true               |                                                 |
+| Item Frame  | true               |                                                 |
+| End Crystal | true               |                                                 |
 | Beacon Beam | false              | Enabling transparency causes render layer bugs. |
 
 ### Default configuration file
@@ -40,9 +40,10 @@ Place in your resource pack in `/assets/transparent/transparent.json`.
 
 ```json
 {
-    "painting": true,
+    "beacon_beam": false,
+    "end_crystal": true,
     "item_frame": true,
-    "beacon_beam": false
+    "painting": true
 }
 ```
 

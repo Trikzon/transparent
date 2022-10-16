@@ -3,23 +3,27 @@ package com.trikzon.transparent;
 import com.google.gson.annotations.SerializedName;
 
 public class ConfigBean {
-    public boolean painting = true;
-    @SerializedName("item_frame")
-    public boolean itemFrame = true;
     @SerializedName("beacon_beam")
     public boolean beaconBeam = false;
+    @SerializedName("end_crystal")
+    public boolean endCrystal = true;
+    @SerializedName("item_frame")
+    public boolean itemFrame = true;
+    public boolean painting = true;
 
     public static ConfigBean empty() {
         var result = new ConfigBean();
-        result.painting = false;
-        result.itemFrame = false;
         result.beaconBeam = false;
+        result.endCrystal = false;
+        result.itemFrame = false;
+        result.painting = false;
         return result;
     }
 
     public void or(ConfigBean other) {
-        this.painting |= other.painting;
-        this.itemFrame |= other.itemFrame;
         this.beaconBeam |= other.beaconBeam;
+        this.endCrystal |= other.endCrystal;
+        this.itemFrame |= other.itemFrame;
+        this.painting |= other.painting;
     }
 }
