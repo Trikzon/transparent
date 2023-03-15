@@ -1,32 +1,25 @@
 # Transparent
-
 [![](http://cf.way2muchnoise.eu/full_377582_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent)
-[![](https://modrinth-utils.vercel.app/api/badge/downloads/?id=transparent&logo=true)](https://modrinth.com/mod/transparent)
+[![](https://img.shields.io/modrinth/dt/transparent?logo=modrinth&style=flat)](https://www.modrinth.com/mod/transparent)
 [![](http://cf.way2muchnoise.eu/versions/377582.svg)](https://www.curseforge.com/minecraft/mc-mods/transparent)
 
-Allows resource packs to make entities support transparency.
+Transparent allows resource packs to give certain entities textures with transparent (or translucent) pixels. To use, simply install the mod and use or create a resource pack that gives one of the supported entities a transparent texture.
 
-![Promo Image](promo.png)
+![Promotional Image](promo.png)
 
-Resource pack in above image: [BwW Texturepack](https://www.curseforge.com/minecraft/texture-packs/bww-texturepack)
+Resource pack used in the above image: [BwW Texturepack](https://www.curseforge.com/minecraft/texture-packs/bww-texturepack).
 
-## Supported Entities:
+Officially supports [Paintings++ Mod](https://www.curseforge.com/minecraft/mc-mods/paintings)!
 
+## Supported Entities
 - Painting
 - Item Frame
 - End Crystal
 - Beacon Beam (disabled by default)
 
-Want an entity added to that list? Contact me on discord and let me know why you want it: https://discord.gg/aqXkvbJ
+If you want another entity to be supported by this mod, please let me know on [Discord](https://discord.gg/aqXkvbJ) or [GitHub Issues](https://github.com/Trikzon/transparent/issues).
 
-## Config
-
-Configuration is done through resource packs.
-
-If you only want the defaults, you don't need a configuration file.
-
-Note: Defaults may change in future updates if
-
+## Configuration
 | Entity      | Enabled By Default | Reason                                          |
 |-------------|--------------------|-------------------------------------------------|
 | Painting    | true               |                                                 |
@@ -34,9 +27,7 @@ Note: Defaults may change in future updates if
 | End Crystal | true               |                                                 |
 | Beacon Beam | false              | Enabling transparency causes render layer bugs. |
 
-### Default configuration file
-
-Place in your resource pack in `/assets/transparent/transparent.json`.
+In order to change the default configuration, paste the following json file content into a file in your resource pack located at `/assets/transparent/transparent.json`.
 
 ```json
 {
@@ -47,22 +38,10 @@ Place in your resource pack in `/assets/transparent/transparent.json`.
 }
 ```
 
-## License
+---
 
-All assets found in the following directories are licensed under All Rights Reserved.
-- ./common/src/main/resources/assets/
-- ./fabric/src/main/resources/assets/
-- ./forge/src/main/resources/assets/
-- ./quilt/src/main/resources/assets/
+Report any issues on [GitHub](https://github.com/Trikzon/transparent/issues). Chat on [Discord](https://discord.gg/aqXkvbJ) in the `#mc-mods` channel.
 
-Everything else is licensed under MIT.
+Support the development of my mods on [Ko-fi](https://ko-fi.com/X7X8D56YI).
 
-Want clarification or explicit permission? Contact me on [Discord](https://discord.gg/aqXkvbJ).
-
-## Other Information
-
-- Report issues here: https://github.com/Trikzon/transparent/issues
-- Join my discord: https://discord.gg/aqXkvbJ
-- You can include this mod in your modpack as long as you don't claim the mod as your own.
-
-[<img src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://ko-fi.com/trikzon)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X7X8D56YI)

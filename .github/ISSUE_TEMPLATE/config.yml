@@ -1,8 +1,0 @@
-blank_issues_enabled: true
-contact_links:
-  - name: Feature Request
-    url: https://github.com/trikzon/armor-visibility/discussions/new
-    about: Discuss a feature request to fully develop it.
-  - name: Question
-    url: https://github.com/trikzon/armor-visibility/discussions/new
-    about: Ask a question.

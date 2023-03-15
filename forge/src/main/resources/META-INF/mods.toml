@@ -1,28 +1,40 @@
-modLoader = "javafml"
-loaderVersion = "[41,)"
-issueTrackerURL = "https://github.com/trikzon/transparent/issues"
-license = "MIT; Assets licensed as All Rights Reserved"
+modLoader="javafml" #mandatory
+loaderVersion="[44,)" #mandatory
+license="LGPL-3.0-or-later"
+issueTrackerURL="https://github.com/trikzon/transparent/issues" #optional
 
-[[mods]]
-modId = "transparent"
-version = "${version}"
-displayName = "Transparent"
-authors = "Trikzon"
-description = '''
-Allows resource packs to make entities support transparency.
+[[mods]] #mandatory
+modId="transparent" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Transparent" #mandatory
+#updateJSONURL="" #optional
+displayURL="https://github.com/trikzon/transparent" #optional
+logoFile="assets/transparent/icon.png" #optional
+#credits="" #optional
+authors="Trikzon" #optional
+description='''
+Transparent allows resource packs to give certain entities textures with transparent (or translucent) pixels.
+
+To use, simply install the mod and use or create a resource pack that gives one of the supported entities a transparent texture.
 '''
-#logoFile = ""
+
+[[dependencies.transparent]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[44,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
 
 [[dependencies.transparent]]
-modId = "forge"
-mandatory = true
-versionRange = "[41,)"
-ordering = "NONE"
-side = "BOTH"
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19.3,1.20)"
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.transparent]]
-modId = "minecraft"
-mandatory = true
-versionRange = "[1.19,)"
-ordering = "NONE"
-side = "BOTH"
+    modId="ash"
+    mandatory=true
+    versionRange="[0.1.3,)"
