@@ -1,0 +1,20 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.diontryban.transparent.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+    ],
+    "client": [
+        "client.BeaconRendererMixin",
+        "client.EndCrystalRendererMixin",
+        "client.ItemFrameRendererMixin",
+        "client.PaintingRendererMixin",
+        "client.TextureAtlasHolderAccessor",
+        "client.TextureAtlasMixin"
+    ],
+    "injectors": {
+      "defaultRequire": 1
+    }
+  }
+  
