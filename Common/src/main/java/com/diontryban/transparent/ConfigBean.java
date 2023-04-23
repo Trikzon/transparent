@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Transparent. If not, see <https://www.gnu.org/licenses/>.
  */
+
 package com.diontryban.transparent;
 
 import com.google.gson.annotations.SerializedName;

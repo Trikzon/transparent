@@ -3,14 +3,13 @@ plugins {
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 archivesBaseName = "${mod_id}-forge-${minecraft_version}"
 
 minecraft {
-    mappings channel: 'parchment', version: "${parchment_mc_version}-${parchment_version}-${minecraft_version}"
+    mappings channel: 'official', version: minecraft_version
     
     runs {
         client {

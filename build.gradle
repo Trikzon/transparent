@@ -42,10 +42,6 @@ subprojects {
             url = 'https://maven.blamejared.com'
         }
         maven {
-            name = 'ParchmentMC'
-            url = 'https://maven.parchmentmc.org'
-        }
-        maven {
             name = 'DionTryban Maven (Ash)'
             url = 'https://maven.diontryban.com/releases'
         }

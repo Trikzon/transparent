@@ -2,6 +2,7 @@
     "required": true,
     "minVersion": "0.8",
     "package": "com.diontryban.transparent.mixin",
+    "refmap": "transparent.refmap.json",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
     ],

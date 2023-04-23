@@ -33,11 +33,11 @@
       },
       {
         "id": "minecraft",
-        "versions": ">=1.19.3"
+        "versions": "^1.19.3"
       },
       {
         "id": "ash",
-        "versions": ">=0.1.3"
+        "versions": "^1.0.0-rc.1"
       }
     ]
   },

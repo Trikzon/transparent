@@ -26,9 +26,9 @@
     ],
     "depends": {
         "fabric": "*",
-        "minecraft": ">=1.19.3",
+        "minecraft": "^1.19.3",
         "java": ">=17",
-        "ash": ">=0.1.3"
+        "ash": "^1.0.0-rc.1"
     },
     "suggests": {
     }

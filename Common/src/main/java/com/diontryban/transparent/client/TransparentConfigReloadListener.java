@@ -28,6 +28,7 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -37,7 +38,14 @@ import java.util.concurrent.Executor;
 
 public class TransparentConfigReloadListener implements PreparableReloadListener {
     @Override
-    public CompletableFuture<Void> reload(PreparationBarrier preparationBarrier, ResourceManager resourceManager, ProfilerFiller profilerFiller, ProfilerFiller profilerFiller1, Executor executor, Executor executor1) {
+    public @NotNull CompletableFuture<Void> reload(
+            @NotNull PreparationBarrier preparationBarrier,
+            @NotNull ResourceManager resourceManager,
+            @NotNull ProfilerFiller profilerFiller,
+            @NotNull ProfilerFiller profilerFiller1,
+            @NotNull Executor executor,
+            @NotNull Executor executor1
+    ) {
         return CompletableFuture.supplyAsync(() -> null).thenCompose(preparationBarrier::wait).thenRun(() -> {
             var configLocation = new ResourceLocation(Transparent.MOD_ID, Transparent.MOD_ID + ".json");
             Gson gson = new Gson();
@@ -66,7 +74,7 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return new ResourceLocation(Transparent.MOD_ID, "config").toString();
     }
 }
