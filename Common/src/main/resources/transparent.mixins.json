@@ -7,6 +7,7 @@
     "mixins": [
     ],
     "client": [
+        "client.ArmorStandRendererMixin",
         "client.BeaconRendererMixin",
         "client.EndCrystalRendererMixin",
         "client.ItemFrameRendererMixin",

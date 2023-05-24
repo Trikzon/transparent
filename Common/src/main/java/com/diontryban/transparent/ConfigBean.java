@@ -22,6 +22,8 @@ package com.diontryban.transparent;
 import com.google.gson.annotations.SerializedName;
 
 public class ConfigBean {
+    @SerializedName("armor_stand")
+    public boolean armorStand = true;
     @SerializedName("beacon_beam")
     public boolean beaconBeam = false;
     @SerializedName("end_crystal")
@@ -32,6 +34,7 @@ public class ConfigBean {
 
     public static ConfigBean empty() {
         var result = new ConfigBean();
+        result.armorStand = false;
         result.beaconBeam = false;
         result.endCrystal = false;
         result.itemFrame = false;
@@ -40,6 +43,7 @@ public class ConfigBean {
     }
 
     public void or(ConfigBean other) {
+        this.armorStand |= other.armorStand;
         this.beaconBeam |= other.beaconBeam;
         this.endCrystal |= other.endCrystal;
         this.itemFrame |= other.itemFrame;
