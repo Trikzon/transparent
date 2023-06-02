@@ -67,9 +67,11 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
                 Transparent.CONFIG = new ConfigBean();
             }
 
-            Transparent.LOG.info("Painting transparency set to: " + Transparent.CONFIG.painting);
-            Transparent.LOG.info("Item Frame transparency set to: " + Transparent.CONFIG.itemFrame);
+            Transparent.LOG.info("Armor Stand transparency set to: " + Transparent.CONFIG.armorStand);
             Transparent.LOG.info("Beacon Beam transparency set to: " + Transparent.CONFIG.beaconBeam);
+            Transparent.LOG.info("End Crystal transparency set to: " + Transparent.CONFIG.endCrystal);
+            Transparent.LOG.info("Item Frame transparency set to: " + Transparent.CONFIG.itemFrame);
+            Transparent.LOG.info("Painting transparency set to: " + Transparent.CONFIG.painting);
         });
     }
 
