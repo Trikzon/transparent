@@ -20,11 +20,13 @@
 package com.diontryban.transparent.mixin.client;
 
 import com.diontryban.transparent.Transparent;
+import com.diontryban.transparent.client.render.TransparentRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,8 +40,8 @@ public abstract class ItemFrameRendererMixin<T extends ItemFrame> extends Entity
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/Sheets;solidBlockSheet()Lnet/minecraft/client/renderer/RenderType;"))
     private RenderType redirectSolidBlockSheetInRender() {
-        return Transparent.CONFIG.itemFrame ?
-                Sheets.translucentCullBlockSheet() :
-                Sheets.solidBlockSheet();
+        return Transparent.CONFIG.itemFrame
+                ? TransparentRenderTypes.entitySolid(TextureAtlas.LOCATION_BLOCKS)
+                : Sheets.solidBlockSheet();
     }
 }

@@ -45,6 +45,7 @@ loom {
             runDir('run')
         }
     }
+    accessWidenerPath = file("${project(':Common').projectDir.path}/src/main/resources/${mod_id}.accesswidener")
     mixin {
         defaultRefmapName = "${mod_id}.refmap.json"
     }

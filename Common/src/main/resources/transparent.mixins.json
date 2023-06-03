@@ -12,6 +12,7 @@
         "client.EndCrystalRendererMixin",
         "client.ItemFrameRendererMixin",
         "client.PaintingRendererMixin",
+        "client.RenderTypeAccessor",
         "client.TextureAtlasHolderAccessor",
         "client.TextureAtlasMixin"
     ],

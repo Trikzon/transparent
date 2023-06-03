@@ -20,10 +20,10 @@
 package com.diontryban.transparent.mixin.client;
 
 import com.diontryban.transparent.Transparent;
+import com.diontryban.transparent.client.render.TransparentRenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EndCrystalRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -38,8 +38,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(EndCrystalRenderer.class)
 public abstract class EndCrystalRendererMixin extends EntityRenderer<EndCrystal> {
     @Shadow @Final private static ResourceLocation END_CRYSTAL_LOCATION;
-    private static final RenderType TRANSLUCENT_RENDER_TYPE = RenderType.entityTranslucent(END_CRYSTAL_LOCATION);
-
     protected EndCrystalRendererMixin(EntityRendererProvider.Context context) {
         super(context);
     }
@@ -53,8 +51,8 @@ public abstract class EndCrystalRendererMixin extends EntityRenderer<EndCrystal>
             PoseStack poseStack,
             MultiBufferSource bufferSource
     ) {
-        return Transparent.CONFIG.endCrystal ?
-                bufferSource.getBuffer(TRANSLUCENT_RENDER_TYPE) :
-                original;
+        return Transparent.CONFIG.endCrystal
+                ? bufferSource.getBuffer(TransparentRenderTypes.entityCutoutNoCull(END_CRYSTAL_LOCATION))
+                : original;
     }
 }

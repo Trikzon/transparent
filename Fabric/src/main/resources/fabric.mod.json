@@ -20,6 +20,7 @@
             "com.diontryban.transparent.client.TransparentClientFabric"
         ]
     },
+    "accessWidener": "transparent.accesswidener",
     "mixins": [
         "transparent.mixins.json",
         "transparent.fabric.mixins.json"

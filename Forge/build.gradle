@@ -9,6 +9,8 @@ plugins {
 archivesBaseName = "${mod_id}-forge-${minecraft_version}"
 
 minecraft {
+    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+
     mappings channel: 'official', version: minecraft_version
     
     runs {

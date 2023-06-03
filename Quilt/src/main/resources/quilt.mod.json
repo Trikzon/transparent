@@ -41,6 +41,7 @@
       }
     ]
   },
+  "access_widener": "transparent.accesswidener",
   "mixin": [
     "transparent.mixins.json",
     "transparent.quilt.mixins.json"

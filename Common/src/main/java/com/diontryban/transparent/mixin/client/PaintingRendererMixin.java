@@ -21,11 +21,11 @@ package com.diontryban.transparent.mixin.client;
 
 import com.diontryban.transparent.Transparent;
 import com.diontryban.transparent.client.TransparentClient;
+import com.diontryban.transparent.client.render.TransparentRenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.PaintingRenderer;
@@ -33,11 +33,14 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.Painting;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(PaintingRenderer.class)
 public abstract class PaintingRendererMixin extends EntityRenderer<Painting> {
+    @Shadow public abstract ResourceLocation getTextureLocation(Painting $$0);
+
     protected PaintingRendererMixin(EntityRendererProvider.Context context) {
         super(context);
     }
@@ -52,9 +55,9 @@ public abstract class PaintingRendererMixin extends EntityRenderer<Painting> {
             MultiBufferSource bufferSource,
             int packedLight
     ) {
-        return Transparent.CONFIG.painting ?
-                bufferSource.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(entity))) :
-                original;
+        return Transparent.CONFIG.painting
+                ? bufferSource.getBuffer(TransparentRenderTypes.entitySolid(this.getTextureLocation(entity)))
+                : original;
     }
 
     @ModifyVariable(method = "renderPainting", at = @At("HEAD"), argsOnly = true, ordinal = 1)
