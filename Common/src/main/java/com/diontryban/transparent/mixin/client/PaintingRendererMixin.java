@@ -33,31 +33,42 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.Painting;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PaintingRenderer.class)
 public abstract class PaintingRendererMixin extends EntityRenderer<Painting> {
-    @Shadow public abstract ResourceLocation getTextureLocation(Painting $$0);
+    private MultiBufferSource multiBufferSource;
 
     protected PaintingRendererMixin(EntityRendererProvider.Context context) {
         super(context);
     }
 
-    @ModifyVariable(method = "render", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/renderer/MultiBufferSource;getBuffer(Lnet/minecraft/client/renderer/RenderType;)Lcom/mojang/blaze3d/vertex/VertexConsumer;"))
-    private VertexConsumer modifyGetBufferResultInRender(
-            VertexConsumer original,
-            Painting entity,
-            float entityYaw,
-            float partialTicks,
+    @Inject(method = "render(Lnet/minecraft/world/entity/decoration/Painting;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At("HEAD"))
+    private void onRender(Painting painting, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
+        this.multiBufferSource = multiBufferSource;
+    }
+
+    @ModifyVariable(method = "renderPainting", at = @At("HEAD"), argsOnly = true, ordinal = 0)
+    private VertexConsumer modifyVertexConsumerInRenderPainting(
+            VertexConsumer originalVertexConsumer,
             PoseStack poseStack,
-            MultiBufferSource bufferSource,
-            int packedLight
+            VertexConsumer vertexConsumer,
+            Painting painting,
+            int width,
+            int height,
+            TextureAtlasSprite paintingSprite
     ) {
-        return Transparent.CONFIG.painting
-                ? bufferSource.getBuffer(TransparentRenderTypes.entitySolid(this.getTextureLocation(entity)))
-                : original;
+        if (!Transparent.CONFIG.painting || this.multiBufferSource == null) {
+            return originalVertexConsumer;
+        } else {
+            MultiBufferSource multiBufferSource = this.multiBufferSource;
+            this.multiBufferSource = null;
+
+            return multiBufferSource.getBuffer(TransparentRenderTypes.entitySolid(paintingSprite.atlasLocation()));
+        }
     }
 
     @ModifyVariable(method = "renderPainting", at = @At("HEAD"), argsOnly = true, ordinal = 1)
@@ -70,9 +81,13 @@ public abstract class PaintingRendererMixin extends EntityRenderer<Painting> {
             int height,
             TextureAtlasSprite paintingSprite
     ) {
-        if (TransparentClient.isSpriteContentsTransparent(paintingSprite.contents())) {
+        if (Transparent.CONFIG.painting && TransparentClient.isSpriteContentsTransparent(paintingSprite.contents())) {
             var accessor = ((TextureAtlasHolderAccessor) Minecraft.getInstance().getPaintingTextures());
-            return accessor.callGetSprite(new ResourceLocation(Transparent.MOD_ID, "blank"));
+            var blankSprite = accessor.callGetSprite(new ResourceLocation(Transparent.MOD_ID, "blank"));
+            // Only use blank sprite if it is on the same texture atlas as the painting sprite.
+            if (blankSprite.atlasLocation().equals(paintingSprite.atlasLocation())) {
+                return blankSprite;
+            }
         }
         return originalBackSprite;
     }

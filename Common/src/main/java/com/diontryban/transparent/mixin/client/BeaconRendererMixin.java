@@ -40,5 +40,4 @@ public abstract class BeaconRendererMixin implements BlockEntityRenderer<BeaconB
                 RenderType.beaconBeam(texture, true) :
                 RenderType.beaconBeam(texture, translucent);
     }
-
 }
