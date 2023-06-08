@@ -17,16 +17,15 @@
  * along with Transparent. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.diontryban.transparent.mixin.client;
+package com.diontryban.transparent.mixin.client.accessor;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.TextureAtlasHolder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(TextureAtlasHolder.class)
-public interface TextureAtlasHolderAccessor {
-    @Invoker
-    TextureAtlasSprite callGetSprite(ResourceLocation resLoc);
+@Mixin(RenderType.CompositeState.class)
+public interface CompositeStateAccessor {
+    @Accessor
+    RenderStateShard.EmptyTextureStateShard getTextureState();
 }

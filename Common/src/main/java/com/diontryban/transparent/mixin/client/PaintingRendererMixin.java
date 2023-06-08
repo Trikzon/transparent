@@ -22,6 +22,7 @@ package com.diontryban.transparent.mixin.client;
 import com.diontryban.transparent.Transparent;
 import com.diontryban.transparent.client.TransparentClient;
 import com.diontryban.transparent.client.render.TransparentRenderTypes;
+import com.diontryban.transparent.mixin.client.accessor.TextureAtlasHolderAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;

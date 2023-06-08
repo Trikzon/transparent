@@ -17,7 +17,7 @@
  * along with Transparent. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.diontryban.transparent.mixin.client;
+package com.diontryban.transparent.mixin.client.accessor;
 
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderType;

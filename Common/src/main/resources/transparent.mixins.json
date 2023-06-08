@@ -7,13 +7,17 @@
     "mixins": [
     ],
     "client": [
+        "client.accessor.CompositeRenderTypeAccessor",
+        "client.accessor.CompositeStateAccessor",
+        "client.accessor.RenderTypeAccessor",
+        "client.accessor.TextureAtlasHolderAccessor",
+        "client.accessor.TextureStateShardAccessor",
+
         "client.ArmorStandRendererMixin",
         "client.BeaconRendererMixin",
         "client.EndCrystalRendererMixin",
         "client.ItemFrameRendererMixin",
         "client.PaintingRendererMixin",
-        "client.RenderTypeAccessor",
-        "client.TextureAtlasHolderAccessor",
         "client.TextureAtlasMixin"
     ],
     "injectors": {
