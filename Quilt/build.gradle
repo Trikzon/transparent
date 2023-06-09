@@ -2,6 +2,8 @@ plugins {
     id 'org.quiltmc.loom' version '1.+'
     id 'maven-publish'
     id 'idea'
+    id 'com.modrinth.minotaur' version '2.+'
+    id 'io.github.CDAGaming.cursegradle' version '1.6.1'
 }
 
 archivesBaseName = "${mod_id}-quilt-${minecraft_version}"
@@ -78,6 +80,41 @@ publishing {
     repositories {
         maven {
             url 'file://' + System.getenv('local_maven')
+        }
+    }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = 'zp4jb9oQ'
+    versionNumber = "${project.version}-quilt"
+    versionName = "[Quilt ${project.minecraft_version}] v${project.version}"
+    versionType = 'release'
+    changelog = rootProject.file('MINI_CHANGELOG.md').text
+    uploadFile = remapJar
+    gameVersions = ['1.20']
+    loaders = ['quilt']
+    dependencies {
+        required.project 'ash-api'
+    }
+}
+
+curseforge {
+    apiKey = System.getenv('CURSEFORGE_TOKEN')
+    project {
+        id = '377582'
+        releaseType = 'release'
+        changelog = rootProject.file('MINI_CHANGELOG.md').text
+        changelogType = 'markdown'
+        mainArtifact(remapJar) {
+            it.displayName = "[Quilt ${project.minecraft_version}] v${project.version}"
+        }
+        addGameVersion 'Quilt'
+        addGameVersion 'Client'
+        addGameVersion 'Java 17'
+        addGameVersion '1.20'
+        relations {
+            it.requiredDependency 'ash-api'
         }
     }
 }

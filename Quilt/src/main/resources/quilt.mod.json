@@ -24,20 +24,16 @@
     },
     "depends": [
       {
-        "id": "quilt_loader",
-        "versions": ">=0.17.6-"
-      },
-      {
         "id": "quilted_fabric_api",
-        "versions": ">=5.0.0-"
+        "versions": ">=7.0.0-"
       },
       {
         "id": "minecraft",
-        "versions": "^1.19.3"
+        "versions": "^1.20"
       },
       {
         "id": "ash",
-        "versions": "^1.0.0-rc.1"
+        "versions": "^2.0.0-a.1"
       }
     ]
   },
