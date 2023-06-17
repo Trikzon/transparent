@@ -35,6 +35,6 @@ To use, simply install the mod and use or create a resource pack that gives one 
     side="BOTH"
 
 [[dependencies.transparent]]
-    modId="ash"
+    modId="ash_api"
     mandatory=true
-    versionRange="[2.0.0-alpha.1,3.0.0-alpha.1)"
+    versionRange="[2.1.0,3.0.0-alpha.1)"

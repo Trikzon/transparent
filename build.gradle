@@ -1,6 +1,14 @@
+plugins {
+    id 'com.modrinth.minotaur' version '2.+' apply(false)
+    id 'io.github.CDAGaming.cursegradle' version '1.6.1' apply(false)
+}
+
 subprojects {
     apply plugin: 'java'
-    
+
+    project.ext.mod_version = project.version
+    project.version = "${project.version}+${project.minecraft_version}"
+
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
     java.withJavadocJar()
@@ -38,18 +46,24 @@ subprojects {
             url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
         maven {
-            name = 'BlameJared Maven (CrT / Bookshelf)'
+            name = 'BlameJared Maven (JEI / CraftTweaker / Bookshelf)'
             url = 'https://maven.blamejared.com'
         }
         maven {
-            name = 'DionTryban Maven (Ash)'
+            name = 'DionTryban Maven (Ash API)'
             url = 'https://maven.diontryban.com/releases'
         }
     }
 
     tasks.withType(JavaCompile).configureEach {
         it.options.encoding = 'UTF-8'
-        it.options.release = 17
+        it.options.getRelease().set(17)
+    }
+
+    processResources {
+        filesMatching(['pack.mcmeta', 'fabric.mod.json', 'mods.toml', 'quilt.mod.json', '*.mixins.json']) {
+            expand project.properties
+        }
     }
 
     // Disables Gradle's custom module metadata from being published to maven. The

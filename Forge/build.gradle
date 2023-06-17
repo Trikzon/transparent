@@ -1,31 +1,34 @@
 plugins {
-    id 'java'
-    id 'eclipse'
+    id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '6.0.+'
+    id 'com.modrinth.minotaur'
+    id 'io.github.CDAGaming.cursegradle'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2]'
     id 'org.spongepowered.mixin' version '0.7.+'
-    id 'com.modrinth.minotaur' version '2.+'
-    id 'io.github.CDAGaming.cursegradle' version '1.6.1'
 }
 
-archivesBaseName = "${mod_id}-forge-${minecraft_version}"
+base {
+    archivesName = "${mod_id}-forge"
+}
 
 minecraft {
-    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
-
     mappings channel: 'official', version: minecraft_version
+
+    if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
+        accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    }
     
     runs {
         client {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Client'
+            taskName 'client'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modClientRun {
                     source sourceSets.main
-                    source project(':Common').sourceSets.main
+                    source project(':common').sourceSets.main
                 }
             }
         }
@@ -33,13 +36,13 @@ minecraft {
         server {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Server'
+            taskName 'server'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modServerRun {
                     source sourceSets.main
-                    source project(':Common').sourceSets.main
+                    source project(':common').sourceSets.main
                 }
             }
         }
@@ -48,13 +51,13 @@ minecraft {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            taskName 'Data'
+            taskName 'data'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modDataRun {
                     source sourceSets.main
-                    source project(':Common').sourceSets.main
+                    source project(':common').sourceSets.main
                 }
             }
         }
@@ -66,7 +69,6 @@ mixin {
 
     config "${mod_id}.mixins.json"
     config "${mod_id}.forge.mixins.json"
-    debug.export = true
 }
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
@@ -76,29 +78,33 @@ dependencies {
 
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
-    implementation fg.deobf("com.diontryban.ash:ash-forge-${minecraft_version}:${ash_version}")
+    implementation fg.deobf("com.diontryban.ash:ash_api-forge:${ash_version}")
 
-    compileOnly project(':Common')
+    compileOnly project(':common')
 }
 
 tasks.withType(JavaCompile) {
-    source(project(':Common').sourceSets.main.allSource)
+    source(project(':common').sourceSets.main.allSource)
+}
+tasks.withType(Javadoc).configureEach {
+    source(project(':common').sourceSets.main.allJava)
+}
+tasks.named('sourcesJar', Jar) {
+    from(project(':common').sourceSets.main.allSource)
 }
 
 processResources {
-    from project(':Common').sourceSets.main.resources
+    from project(':common').sourceSets.main.resources
 }
-
 
 jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
+            artifactId base.archivesName.get()
             artifact jar
+            fg.component(it)
         }
     }
     repositories {
@@ -110,13 +116,13 @@ publishing {
 
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
-    projectId = 'zp4jb9oQ'
+    projectId = project.modrinth_id
     versionNumber = "${project.version}-forge"
-    versionName = "[Forge ${project.minecraft_version}] v${project.version}"
-    versionType = 'release'
+    versionName = "[Forge ${project.minecraft_version}] v${project.mod_version}"
+    versionType = project.version_type
     changelog = rootProject.file('MINI_CHANGELOG.md').text
     uploadFile = jar
-    gameVersions = ['1.20']
+    gameVersions = project.minecraft_version.split(',').toList()
     loaders = ['forge']
     dependencies {
         required.project 'ash-api'
@@ -126,17 +132,18 @@ modrinth {
 curseforge {
     apiKey = System.getenv('CURSEFORGE_TOKEN')
     project {
-        id = '377582'
-        releaseType = 'release'
+        id = project.curseforge_id
+        releaseType = project.version_type
         changelog = rootProject.file('MINI_CHANGELOG.md').text
         changelogType = 'markdown'
         mainArtifact(jar) {
-            it.displayName = "[Forge ${project.minecraft_version}] v${project.version}"
+            it.displayName = "[Forge ${project.minecraft_version}] v${project.mod_version}"
         }
         addGameVersion 'Forge'
-        addGameVersion 'Client'
-        addGameVersion 'Java 17'
-        addGameVersion '1.20'
+        if (project.is_client.toBoolean()) { addGameVersion 'Client' }
+        if (project.is_server.toBoolean()) { addGameVersion 'Server' }
+        addGameVersion project.java_version
+        project.game_versions.split(',').each { addGameVersion it }
         relations {
             it.requiredDependency 'ash-api'
         }

@@ -32,8 +32,8 @@
         "versions": "^1.20"
       },
       {
-        "id": "ash",
-        "versions": ">=2.0.0-"
+        "id": "ash_api",
+        "versions": ">=2.1.0"
       }
     ]
   },
