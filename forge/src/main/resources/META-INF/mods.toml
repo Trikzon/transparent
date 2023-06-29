@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[46,)" #mandatory
+loaderVersion="[47,)" #mandatory
 license="LGPL-3.0-or-later"
 issueTrackerURL="https://github.com/trikzon/transparent/issues" #optional
 
@@ -21,7 +21,7 @@ To use, simply install the mod and use or create a resource pack that gives one 
 [[dependencies.transparent]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[46,)" #mandatory
+    versionRange="[47,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -30,11 +30,11 @@ To use, simply install the mod and use or create a resource pack that gives one 
 [[dependencies.transparent]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20,1.21)"
+    versionRange="[1.20.1,1.21)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.transparent]]
     modId="ash_api"
     mandatory=true
-    versionRange="[2.1.0,3.0.0-alpha.1)"
+    versionRange="[3.0.0,)"
