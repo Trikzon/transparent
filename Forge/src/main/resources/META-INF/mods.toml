@@ -37,4 +37,4 @@ To use, simply install the mod and use or create a resource pack that gives one 
 [[dependencies.transparent]]
     modId="ash"
     mandatory=true
-    versionRange="[1.0.0-rc.1,2.0.0)"
+    versionRange="[1.0.3,2.0.0)"

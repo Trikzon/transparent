@@ -19,14 +19,13 @@
 
 package com.diontryban.transparent;
 
+import com.diontryban.ash.api.modloader.forge.ForgeModInitializer;
 import com.diontryban.transparent.client.TransparentClientForge;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(Transparent.MOD_ID)
-public class TransparentForge {
+public class TransparentForge extends ForgeModInitializer {
     public TransparentForge() {
-        DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> TransparentClientForge::new);
+        super(Transparent.MOD_ID, Transparent::new, TransparentClientForge::new);
     }
 }
