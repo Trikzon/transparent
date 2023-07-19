@@ -19,12 +19,10 @@
 
 package com.diontryban.transparent.client;
 
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import com.diontryban.ash.api.modloader.quilt.QuiltClientModInitializer;
 
-public class TransparentClientQuilt implements ClientModInitializer {
-    @Override
-    public void onInitializeClient(ModContainer mod) {
-        TransparentClient.init();
+public class TransparentClientQuilt extends QuiltClientModInitializer {
+    public TransparentClientQuilt() {
+        super(TransparentClient::new);
     }
 }

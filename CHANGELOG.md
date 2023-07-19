@@ -1,4 +1,8 @@
 # Changelog
+## 8.0.1+1.20.1
+- Use Ash's *ModInitializer APIs
+- Fixes crash when running forge's data generator
+
 ## 8.0.0+1.20.1
 - Update to MC 1.20.1
 

@@ -19,13 +19,19 @@
 
 package com.diontryban.transparent;
 
+import com.diontryban.ash.api.modloader.CommonModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Transparent {
+public class Transparent extends CommonModInitializer {
     public static final String MOD_ID = "transparent";
     public static final String MOD_NAME = "Transparent";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
     public static ConfigBean CONFIG = new ConfigBean();
+
+    @Override
+    public void onInitialize() {
+
+    }
 }
