@@ -1,6 +1,5 @@
-## 7.1.0+1.20
-- Update build scripts
-- Require `ash_api` instead of `ash`
-- Add minecraft version to the end of version number
+## 7.1.1+1.20
+- Use Ash's *ModInitializer APIs
+- Fixes crash when running forge's data generator
 
 A full changelog is hosted on [GitHub](https://github.com/Trikzon/transparent/blob/1.20/CHANGELOG.md).

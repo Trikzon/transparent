@@ -1,4 +1,8 @@
 # Changelog
+## 7.1.1+1.20
+- Use Ash's *ModInitializer APIs
+- Fixes crash when running forge's data generator
+
 ## 7.1.0+1.20
 - Update build scripts
 - Require `ash_api` instead of `ash`

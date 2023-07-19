@@ -33,7 +33,7 @@
       },
       {
         "id": "ash_api",
-        "versions": ">=2.1.0"
+        "versions": ">=2.1.1"
       }
     ]
   },
