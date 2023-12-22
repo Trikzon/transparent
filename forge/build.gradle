@@ -1,34 +1,42 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'com.modrinth.minotaur'
-    id 'io.github.CDAGaming.cursegradle'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2]'
-    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
-
 base {
     archivesName = "${mod_id}-forge"
+}
+mixin {
+    add(sourceSets.main, "${mod_id}.refmap.json")
+
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
 }
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
 
-    if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
-        accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    copyIdeResources = true //Calls processResources when in dev
+
+    // Automatically enable forge AccessTransformers if the file exists
+    // This location is hardcoded in Forge and can not be changed.
+    // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
+    if (project(':common').file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
+        accessTransformer = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
     }
-    
+
     runs {
         client {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'client'
+            taskName 'Client'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modClientRun {
                     source sourceSets.main
-                    source project(':common').sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -36,13 +44,13 @@ minecraft {
         server {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'server'
+            taskName 'Server'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modServerRun {
                     source sourceSets.main
-                    source project(':common').sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -51,24 +59,17 @@ minecraft {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            taskName 'data'
+            taskName 'Data'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modDataRun {
                     source sourceSets.main
-                    source project(':common').sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
     }
-}
-
-mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
-
-    config "${mod_id}.mixins.json"
-    config "${mod_id}.forge.mixins.json"
 }
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
@@ -76,25 +77,25 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 
-    implementation fg.deobf("com.diontryban.ash:ash_api-forge:${ash_version}")
+    implementation fg.deobf("com.diontryban.ash_api:ash_api-forge:${ash_version}")
 
-    compileOnly project(':common')
+    compileOnly project(":common")
 }
 
-tasks.withType(JavaCompile) {
-    source(project(':common').sourceSets.main.allSource)
+tasks.withType(JavaCompile).configureEach {
+    source(project(":common").sourceSets.main.allSource)
 }
 tasks.withType(Javadoc).configureEach {
-    source(project(':common').sourceSets.main.allJava)
+    source(project(":common").sourceSets.main.allJava)
 }
-tasks.named('sourcesJar', Jar) {
-    from(project(':common').sourceSets.main.allSource)
+tasks.named("sourcesJar", Jar) {
+    from(project(":common").sourceSets.main.allSource)
 }
 
 processResources {
-    from project(':common').sourceSets.main.resources
+    from project(":common").sourceSets.main.resources
 }
 
 jar.finalizedBy('reobfJar')
@@ -103,49 +104,19 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId base.archivesName.get()
-            artifact jar
+            from components.java
             fg.component(it)
         }
     }
     repositories {
-        maven {
-            url 'file://' + System.getenv('local_maven')
-        }
-    }
-}
-
-modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = project.modrinth_id
-    versionNumber = "${project.version}-forge"
-    versionName = "[Forge ${project.minecraft_version}] v${project.mod_version}"
-    versionType = project.version_type
-    changelog = rootProject.file('MINI_CHANGELOG.md').text
-    uploadFile = jar
-    gameVersions = project.minecraft_version.split(',').toList()
-    loaders = ['forge']
-    dependencies {
-        required.project 'ash-api'
-    }
-}
-
-curseforge {
-    apiKey = System.getenv('CURSEFORGE_TOKEN')
-    project {
-        id = project.curseforge_id
-        releaseType = project.version_type
-        changelog = rootProject.file('MINI_CHANGELOG.md').text
-        changelogType = 'markdown'
-        mainArtifact(jar) {
-            it.displayName = "[Forge ${project.minecraft_version}] v${project.mod_version}"
-        }
-        addGameVersion 'Forge'
-        if (project.is_client.toBoolean()) { addGameVersion 'Client' }
-        if (project.is_server.toBoolean()) { addGameVersion 'Server' }
-        addGameVersion project.java_version
-        project.game_versions.split(',').each { addGameVersion it }
-        relations {
-            it.requiredDependency 'ash-api'
+        if (System.getenv("DIONTRYBAN_MAVEN_USER") != null && System.getenv("DIONTRYBAN_MAVEN_TOKEN") != null) {
+            maven {
+                url = 'https://maven.diontryban.com/releases'
+                credentials {
+                    username = System.getenv("DIONTRYBAN_MAVEN_USER")
+                    password = System.getenv("DIONTRYBAN_MAVEN_TOKEN")
+                }
+            }
         }
     }
 }

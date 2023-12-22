@@ -4,22 +4,21 @@ plugins {
     id 'maven-publish'
     id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT'
 }
-
 base {
     archivesName = "${mod_id}-common"
 }
-
 minecraft {
     version(minecraft_version)
-    if (file("src/main/resources/${mod_id}.accesswidener").exists()) {
+    if (file("src/main/resources/${mod_id}.accesswidener").exists()){
         accessWideners(file("src/main/resources/${mod_id}.accesswidener"))
+        print("Hit")
     }
 }
 
 dependencies {
-    compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
+    compileOnly group: 'org.spongepowered', name:'mixin', version:'0.8.5'
 
-    compileOnly group: 'com.diontryban.ash', 'name': 'ash_api-common', version: ash_version
+    compileOnly group: 'com.diontryban.ash_api', name: 'ash_api-common', version: ash_version
 
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 }
@@ -31,10 +30,15 @@ publishing {
             from components.java
         }
     }
-
     repositories {
-        maven {
-            url 'file://' + System.getenv('local_maven')
+        if (System.getenv("DIONTRYBAN_MAVEN_USER") != null && System.getenv("DIONTRYBAN_MAVEN_TOKEN") != null) {
+            maven {
+                url = 'https://maven.diontryban.com/releases'
+                credentials {
+                    username = System.getenv("DIONTRYBAN_MAVEN_USER")
+                    password = System.getenv("DIONTRYBAN_MAVEN_TOKEN")
+                }
+            }
         }
     }
 }

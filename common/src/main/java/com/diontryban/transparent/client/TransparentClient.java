@@ -19,8 +19,8 @@
 
 package com.diontryban.transparent.client;
 
-import com.diontryban.ash.api.modloader.CommonClientModInitializer;
-import com.diontryban.ash.api.resource.ResourceLoader;
+import com.diontryban.ash_api.modloader.CommonClientModInitializer;
+import com.diontryban.ash_api.resources.ResourceLoader;
 import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -36,7 +36,7 @@ public class TransparentClient extends CommonClientModInitializer {
     public void onInitializeClient() {
         ResourceLoader
                 .get(PackType.CLIENT_RESOURCES)
-                .registerReloadListenerImpl(new TransparentConfigReloadListener());
+                .registerReloadListener(new TransparentConfigReloadListener());
     }
 
     public static boolean isSpriteContentsTransparent(SpriteContents sprite) {

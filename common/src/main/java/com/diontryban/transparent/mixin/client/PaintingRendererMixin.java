@@ -34,6 +34,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.Painting;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -41,7 +42,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PaintingRenderer.class)
 public abstract class PaintingRendererMixin extends EntityRenderer<Painting> {
-    private MultiBufferSource multiBufferSource;
+    @Unique
+    private MultiBufferSource transparent$multiBufferSource;
 
     protected PaintingRendererMixin(EntityRendererProvider.Context context) {
         super(context);
@@ -49,7 +51,7 @@ public abstract class PaintingRendererMixin extends EntityRenderer<Painting> {
 
     @Inject(method = "render(Lnet/minecraft/world/entity/decoration/Painting;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At("HEAD"))
     private void onRender(Painting painting, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
-        this.multiBufferSource = multiBufferSource;
+        this.transparent$multiBufferSource = multiBufferSource;
     }
 
     @ModifyVariable(method = "renderPainting", at = @At("HEAD"), argsOnly = true, ordinal = 0)
@@ -62,11 +64,11 @@ public abstract class PaintingRendererMixin extends EntityRenderer<Painting> {
             int height,
             TextureAtlasSprite paintingSprite
     ) {
-        if (!Transparent.CONFIG.painting || this.multiBufferSource == null) {
+        if (!Transparent.CONFIG.painting || this.transparent$multiBufferSource == null) {
             return originalVertexConsumer;
         } else {
-            MultiBufferSource multiBufferSource = this.multiBufferSource;
-            this.multiBufferSource = null;
+            MultiBufferSource multiBufferSource = this.transparent$multiBufferSource;
+            this.transparent$multiBufferSource = null;
 
             return multiBufferSource.getBuffer(TransparentRenderTypes.entitySolid(paintingSprite.atlasLocation()));
         }

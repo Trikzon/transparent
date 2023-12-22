@@ -19,14 +19,13 @@
 
 package com.diontryban.transparent;
 
-import com.diontryban.transparent.config.TransparentConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.diontryban.ash_api.modloader.NeoForgeModInitializer;
+import com.diontryban.transparent.client.TransparentClientNeoForge;
+import net.neoforged.fml.common.Mod;
 
-public class Transparent {
-    public static final String MOD_ID = "transparent";
-    public static final String MOD_NAME = "Transparent";
-    public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
-    public static TransparentConfig CONFIG = new TransparentConfig();
-
+@Mod(Transparent.MOD_ID)
+public class TransparentNeoForge extends NeoForgeModInitializer {
+    public TransparentNeoForge() {
+        super(Transparent.MOD_ID, null, TransparentClientNeoForge::new);
+    }
 }

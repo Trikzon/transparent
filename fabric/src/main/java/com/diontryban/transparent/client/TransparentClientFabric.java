@@ -19,7 +19,7 @@
 
 package com.diontryban.transparent.client;
 
-import com.diontryban.ash.api.modloader.fabric.FabricClientModInitializer;
+import com.diontryban.ash_api.modloader.FabricClientModInitializer;
 
 public class TransparentClientFabric extends FabricClientModInitializer {
     public TransparentClientFabric() {

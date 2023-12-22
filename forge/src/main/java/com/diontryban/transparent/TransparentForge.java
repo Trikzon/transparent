@@ -19,13 +19,13 @@
 
 package com.diontryban.transparent;
 
-import com.diontryban.ash.api.modloader.forge.ForgeModInitializer;
+import com.diontryban.ash_api.modloader.ForgeModInitializer;
 import com.diontryban.transparent.client.TransparentClientForge;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(Transparent.MOD_ID)
 public class TransparentForge extends ForgeModInitializer {
     public TransparentForge() {
-        super(Transparent.MOD_ID, Transparent::new, TransparentClientForge::new);
+        super(Transparent.MOD_ID, null, TransparentClientForge::new);
     }
 }

@@ -19,8 +19,8 @@
 
 package com.diontryban.transparent.client;
 
-import com.diontryban.transparent.ConfigBean;
 import com.diontryban.transparent.Transparent;
+import com.diontryban.transparent.config.TransparentConfig;
 import com.google.gson.Gson;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -52,11 +52,11 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
 
             if (resourceManager.getResource(configLocation).isPresent()) {
                 try {
-                    ConfigBean config = ConfigBean.empty();
+                    var config = TransparentConfig.empty();
                     List<Resource> resources = resourceManager.getResourceStack(configLocation);
                     for (Resource resource : resources) {
                         String configContents = IOUtils.toString(resource.open(), StandardCharsets.UTF_8);
-                        config.or(gson.fromJson(configContents, ConfigBean.class));
+                        config.or(gson.fromJson(configContents, TransparentConfig.class));
                     }
                     Transparent.CONFIG = config;
                 } catch (IOException e) {
@@ -64,7 +64,7 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
                     e.printStackTrace();
                 }
             } else {
-                Transparent.CONFIG = new ConfigBean();
+                Transparent.CONFIG = new TransparentConfig();
             }
 
             Transparent.LOG.info("Armor Stand transparency set to: " + Transparent.CONFIG.armorStand);

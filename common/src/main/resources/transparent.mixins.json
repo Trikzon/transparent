@@ -12,7 +12,6 @@
         "client.accessor.RenderTypeAccessor",
         "client.accessor.TextureAtlasHolderAccessor",
         "client.accessor.TextureStateShardAccessor",
-
         "client.ArmorStandRendererMixin",
         "client.BeaconRendererMixin",
         "client.EndCrystalRendererMixin",
@@ -20,8 +19,9 @@
         "client.PaintingRendererMixin",
         "client.TextureAtlasMixin"
     ],
+    "server": [
+    ],
     "injectors": {
-      "defaultRequire": 1
+        "defaultRequire": 1
     }
-  }
-  
+}

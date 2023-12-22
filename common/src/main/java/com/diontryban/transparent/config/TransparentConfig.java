@@ -17,11 +17,11 @@
  * along with Transparent. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.diontryban.transparent;
+package com.diontryban.transparent.config;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ConfigBean {
+public class TransparentConfig {
     @SerializedName("armor_stand")
     public boolean armorStand = true;
     @SerializedName("beacon_beam")
@@ -32,8 +32,8 @@ public class ConfigBean {
     public boolean itemFrame = true;
     public boolean painting = true;
 
-    public static ConfigBean empty() {
-        var result = new ConfigBean();
+    public static TransparentConfig empty() {
+        var result = new TransparentConfig();
         result.armorStand = false;
         result.beaconBeam = false;
         result.endCrystal = false;
@@ -42,7 +42,7 @@ public class ConfigBean {
         return result;
     }
 
-    public void or(ConfigBean other) {
+    public void or(TransparentConfig other) {
         this.armorStand |= other.armorStand;
         this.beaconBeam |= other.beaconBeam;
         this.endCrystal |= other.endCrystal;

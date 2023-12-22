@@ -19,10 +19,11 @@
 
 package com.diontryban.transparent.client;
 
-import com.diontryban.ash.api.modloader.quilt.QuiltClientModInitializer;
+import com.diontryban.ash_api.modloader.NeoForgeClientModInitializer;
+import com.diontryban.transparent.Transparent;
 
-public class TransparentClientQuilt extends QuiltClientModInitializer {
-    public TransparentClientQuilt() {
-        super(TransparentClient::new);
+public class TransparentClientNeoForge extends NeoForgeClientModInitializer {
+    public TransparentClientNeoForge() {
+        super(Transparent.MOD_ID, TransparentClient::new);
     }
 }

@@ -40,7 +40,11 @@ public abstract class EndCrystalRendererMixin extends EntityRenderer<EndCrystal>
         super(context);
     }
 
-    @ModifyArg(method = "render", index = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/MultiBufferSource;getBuffer(Lnet/minecraft/client/renderer/RenderType;)Lcom/mojang/blaze3d/vertex/VertexConsumer;"))
+    @ModifyArg(
+            method = "render(Lnet/minecraft/world/entity/boss/enderdragon/EndCrystal;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
+            index = 0,
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/MultiBufferSource;getBuffer(Lnet/minecraft/client/renderer/RenderType;)Lcom/mojang/blaze3d/vertex/VertexConsumer;")
+    )
     private RenderType modifyArgOfGetBufferInRender(RenderType renderType) {
         return Transparent.CONFIG.endCrystal
                 ? TransparentRenderTypes.entityCutoutNoCull(END_CRYSTAL_LOCATION)

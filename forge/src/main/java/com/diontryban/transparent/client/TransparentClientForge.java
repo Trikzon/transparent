@@ -19,7 +19,7 @@
 
 package com.diontryban.transparent.client;
 
-import com.diontryban.ash.api.modloader.forge.ForgeClientModInitializer;
+import com.diontryban.ash_api.modloader.ForgeClientModInitializer;
 import com.diontryban.transparent.Transparent;
 
 public class TransparentClientForge extends ForgeClientModInitializer {
