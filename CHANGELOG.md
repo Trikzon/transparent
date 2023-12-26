@@ -1,4 +1,7 @@
 # Changelog
+## v20.4.1
+- Updated to MC 1.20.4.
+
 ## v20.4.0
 - Updated to MC 1.20.4.
 
