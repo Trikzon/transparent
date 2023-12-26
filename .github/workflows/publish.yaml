@@ -38,7 +38,7 @@ jobs:
           loaders: |
             neoforge
           game-versions: |
-            1.20.2
+            1.20.4
           java: 17
           name: "[NeoForge ${{ steps.gradle_props.outputs.minecraft_version }}] v${{ steps.gradle_props.outputs.version }}"
           version: "${{ steps.gradle_props.outputs.version }}-neoforge"
@@ -58,7 +58,7 @@ jobs:
           loaders: |
             forge
           game-versions: |
-            1.20.2
+            1.20.4
           java: 17
           name: "[Forge ${{ steps.gradle_props.outputs.minecraft_version }}] v${{ steps.gradle_props.outputs.version }}"
           version: "${{ steps.gradle_props.outputs.version }}-forge"
@@ -79,7 +79,7 @@ jobs:
             fabric
             quilt
           game-versions: |
-            1.20.2
+            1.20.4
           java: 17
           name: "[Fabric ${{ steps.gradle_props.outputs.minecraft_version }}] v${{ steps.gradle_props.outputs.version }}"
           version: "${{ steps.gradle_props.outputs.version }}-fabric"

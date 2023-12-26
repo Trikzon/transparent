@@ -1,4 +1,7 @@
 # Changelog
+## v20.4.0
+- Updated to MC 1.20.4.
+
 ## v20.2.0
 - Update to MC 1.20.2.
 - Changed version format to follow NeoForge's <minecraft_minor>.<minecraft_patch>.(-beta).
