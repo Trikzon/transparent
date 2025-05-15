@@ -19,7 +19,6 @@
 
 package com.diontryban.transparent.client;
 
-import com.diontryban.ash_api.modloader.CommonClientModInitializer;
 import com.diontryban.ash_api.resources.ResourceLoader;
 import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.resources.ResourceLocation;
@@ -28,12 +27,11 @@ import net.minecraft.server.packs.PackType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TransparentClient extends CommonClientModInitializer {
+public class TransparentClient {
     private static final Map<ResourceLocation, Boolean> PAINTING_TRANSPARENCY_CACHE = new HashMap<>();
     public static boolean clearPaintingTransparencyCache = false;
 
-    @Override
-    public void onInitializeClient() {
+    public static void init() {
         ResourceLoader
                 .get(PackType.CLIENT_RESOURCES)
                 .registerReloadListener(new TransparentConfigReloadListener());

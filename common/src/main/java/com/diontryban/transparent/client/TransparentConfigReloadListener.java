@@ -47,7 +47,7 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
             @NotNull Executor executor1
     ) {
         return CompletableFuture.supplyAsync(() -> null).thenCompose(preparationBarrier::wait).thenRun(() -> {
-            var configLocation = new ResourceLocation(Transparent.MOD_ID, Transparent.MOD_ID + ".json");
+            var configLocation = ResourceLocation.fromNamespaceAndPath(Transparent.MOD_ID, Transparent.MOD_ID + ".json");
             Gson gson = new Gson();
 
             if (resourceManager.getResource(configLocation).isPresent()) {
@@ -77,6 +77,6 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
 
     @Override
     public @NotNull String getName() {
-        return new ResourceLocation(Transparent.MOD_ID, "config").toString();
+        return ResourceLocation.fromNamespaceAndPath(Transparent.MOD_ID, "config").toString();
     }
 }

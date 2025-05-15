@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(BeaconRenderer.class)
 public abstract class BeaconRendererMixin implements BlockEntityRenderer<BeaconBlockEntity> {
     @Redirect(
-            method = "renderBeaconBeam(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/resources/ResourceLocation;FFJII[FFF)V",
+            method = "renderBeaconBeam(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/resources/ResourceLocation;FFJIIIFF)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/RenderType;beaconBeam(Lnet/minecraft/resources/ResourceLocation;Z)Lnet/minecraft/client/renderer/RenderType;")
     )
     private static RenderType redirectBeaconBeamInRenderBeaconBeam(ResourceLocation texture, boolean translucent) {

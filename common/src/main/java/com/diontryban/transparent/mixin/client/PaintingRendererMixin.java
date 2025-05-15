@@ -86,7 +86,7 @@ public abstract class PaintingRendererMixin extends EntityRenderer<Painting> {
     ) {
         if (Transparent.CONFIG.painting && TransparentClient.isSpriteContentsTransparent(paintingSprite.contents())) {
             var accessor = ((TextureAtlasHolderAccessor) Minecraft.getInstance().getPaintingTextures());
-            var blankSprite = accessor.callGetSprite(new ResourceLocation(Transparent.MOD_ID, "blank"));
+            var blankSprite = accessor.callGetSprite(ResourceLocation.fromNamespaceAndPath(Transparent.MOD_ID, "blank"));
             // Only use blank sprite if it is on the same texture atlas as the painting sprite.
             if (blankSprite.atlasLocation().equals(paintingSprite.atlasLocation())) {
                 return blankSprite;

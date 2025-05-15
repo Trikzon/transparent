@@ -19,10 +19,11 @@
 
 package com.diontryban.transparent.client;
 
-import com.diontryban.ash_api.modloader.FabricClientModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 
-public class TransparentClientFabric extends FabricClientModInitializer {
-    public TransparentClientFabric() {
-        super(TransparentClient::new);
+public class TransparentClientFabric implements ClientModInitializer {
+    @Override
+    public void onInitializeClient() {
+        TransparentClient.init();
     }
 }

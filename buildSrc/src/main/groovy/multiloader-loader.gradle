@@ -3,10 +3,10 @@ plugins {
 }
 
 configurations {
-    commonJava{
+    commonJava {
         canBeResolved = true
     }
-    commonResources{
+    commonResources {
         canBeResolved = true
     }
 }
@@ -14,7 +14,7 @@ configurations {
 dependencies {
     compileOnly(project(':common')) {
         capabilities {
-            requireCapability "$group:$mod_id"
+            requireCapability "${project.group}:${project.mod_id}"
         }
     }
     commonJava project(path: ':common', configuration: 'commonJava')
@@ -36,7 +36,7 @@ tasks.named('javadoc', Javadoc).configure {
     source(configurations.commonJava)
 }
 
-tasks.named("sourcesJar", Jar) {
+tasks.named('sourcesJar', Jar) {
     dependsOn(configurations.commonJava)
     from(configurations.commonJava)
     dependsOn(configurations.commonResources)

@@ -3,14 +3,15 @@ on:
   push:
     tags:
       - "*"
+env:
+  DIONTRYBAN_MAVEN_USER: github
+  DIONTRYBAN_MAVEN_TOKEN: ${{ secrets.DIONTRYBAN_MAVEN_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
-      - name: validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
       - name: setup jdk 21
         uses: actions/setup-java@v1
         with:
@@ -38,33 +39,12 @@ jobs:
           loaders: |
             neoforge
           game-versions: |
-            1.20.6
+            1.21
           java: 21
           name: "[NeoForge ${{ steps.gradle_props.outputs.minecraft_version }}] v${{ steps.gradle_props.outputs.version }}"
           version: "${{ steps.gradle_props.outputs.version }}-neoforge"
           changelog-file: "MINI_CHANGELOG.md"
-          dependencies: |
-            ash-api
-      - name: Publish Forge to CurseForge and Modrinth
-        uses: Kir-Antipov/mc-publish@v3.3  # https://github.com/Kir-Antipov/mc-publish
-        with:
-          curseforge-id: 377582
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          modrinth-id: zp4jb9oQ
-          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          modrinth-featured: false
-          files: |
-            forge/build/libs/!(*-@(dev|sources|javadoc)).jar
-          loaders: |
-            forge
-          game-versions: |
-            1.20.6
-          java: 21
-          name: "[Forge ${{ steps.gradle_props.outputs.minecraft_version }}] v${{ steps.gradle_props.outputs.version }}"
-          version: "${{ steps.gradle_props.outputs.version }}-forge"
-          changelog-file: "MINI_CHANGELOG.md"
-          dependencies: |
-            ash-api
+          dependencies: "ash-api"
       - name: Publish Fabric to CurseForge and Modrinth
         uses: Kir-Antipov/mc-publish@v3.3  # https://github.com/Kir-Antipov/mc-publish
         with:
@@ -79,10 +59,19 @@ jobs:
             fabric
             quilt
           game-versions: |
-            1.20.6
+            1.21
           java: 21
           name: "[Fabric ${{ steps.gradle_props.outputs.minecraft_version }}] v${{ steps.gradle_props.outputs.version }}"
           version: "${{ steps.gradle_props.outputs.version }}-fabric"
           changelog-file: "MINI_CHANGELOG.md"
-          dependencies: |
-            ash-api
+          dependencies: "ash-api"
+      - name: Publish All to Maven
+        run: ./gradlew publish
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            neoforge/build/libs/!(*-@(dev|sources|javadoc)).jar
+            fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+          body_path: MINI_CHANGELOG.md

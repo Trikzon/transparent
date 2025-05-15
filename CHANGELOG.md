@@ -1,4 +1,7 @@
 # Changelog
+## v21.0.0
+- Updated to MC 1.21.
+
 ## v20.6.1
 - Correctly tag the files as MC 1.20.6 when publishing
 
