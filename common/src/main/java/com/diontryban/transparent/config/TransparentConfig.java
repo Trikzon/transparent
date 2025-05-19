@@ -26,30 +26,35 @@ public class TransparentConfig {
     public boolean armorStand = true;
     @SerializedName("beacon_beam")
     public boolean beaconBeam = false;
-    public boolean cape = true;
     @SerializedName("end_crystal")
     public boolean endCrystal = true;
     @SerializedName("item_frame")
     public boolean itemFrame = true;
     public boolean painting = true;
+    @SerializedName("player_armor")
+    public boolean playerArmor = true;
+    @SerializedName("player_cape")
+    public boolean playerCape = true;
 
     public static TransparentConfig empty() {
         var result = new TransparentConfig();
         result.armorStand = false;
         result.beaconBeam = false;
-        result.cape = false;
         result.endCrystal = false;
         result.itemFrame = false;
         result.painting = false;
+        result.playerArmor = false;
+        result.playerCape = false;
         return result;
     }
 
     public void or(TransparentConfig other) {
         this.armorStand |= other.armorStand;
         this.beaconBeam |= other.beaconBeam;
-        this.cape |= other.cape;
         this.endCrystal |= other.endCrystal;
         this.itemFrame |= other.itemFrame;
         this.painting |= other.painting;
+        this.playerArmor |= other.playerArmor;
+        this.playerCape |= other.playerCape;
     }
 }

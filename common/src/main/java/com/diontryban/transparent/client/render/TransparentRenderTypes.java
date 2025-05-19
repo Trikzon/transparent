@@ -41,6 +41,20 @@ public class TransparentRenderTypes extends RenderStateShard {
         super(null, null, null);
     }
 
+    private static final Function<ResourceLocation, RenderType> ARMOR_CUTOUT_NO_CULL = Util.memoize((textureLoc) -> {
+        RenderType.CompositeState compositeState = RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_ARMOR_CUTOUT_NO_CULL_SHADER)
+                .setTextureState(new RenderStateShard.TextureStateShard(textureLoc, false, false))
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setCullState(NO_CULL)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .setLayeringState(VIEW_OFFSET_Z_LAYERING)
+                .setDepthTestState(LEQUAL_DEPTH_TEST)
+                .createCompositeState(true);
+        return RenderTypeAccessor.callCreate("armor_cutout_no_cull", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, compositeState);
+    });
+
     private static final Function<ResourceLocation, RenderType> ENTITY_SOLID = Util.memoize((textureLoc) -> {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
                 .setShaderState(RENDERTYPE_ENTITY_SOLID_SHADER)
@@ -64,6 +78,10 @@ public class TransparentRenderTypes extends RenderStateShard {
                 .createCompositeState(true);
         return RenderTypeAccessor.callCreate("entity_cutout_no_cull", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, state);
     });
+
+    public static RenderType armorCutoutNoCull(ResourceLocation textureLoc) {
+        return ARMOR_CUTOUT_NO_CULL.apply(textureLoc);
+    }
 
     public static RenderType entitySolid(ResourceLocation textureLoc) {
         return ENTITY_SOLID.apply(textureLoc);

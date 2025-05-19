@@ -1,7 +1,8 @@
 # Changelog
 ## v21.0.0
 - Update to MC 1.21.
-- Make capes support transparency.
+- Make player armor support transparency.
+- Make player capes support transparency.
 
 ## v20.6.1
 - Correctly tag the files as MC 1.20.6 when publishing
