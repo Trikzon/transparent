@@ -12,26 +12,20 @@ Resource pack used in the above image: [BwW Texturepack](https://www.curseforge.
 Officially supports [Paintings++ Mod](https://www.curseforge.com/minecraft/mc-mods/paintings)!
 
 ## Supported Entities
-- Armor Stand (1.19.4+)
-- Cape
-- End Crystal
-- Item Frame
-- Painting
-- Beacon Beam (disabled by default)
+| Entity           | Enabled By Default | Reason                                          | Versions |
+|------------------|--------------------|-------------------------------------------------|----------|
+| Armor Stand      | true               |                                                 | 1.19.4+  |
+| End Crystal      | true               |                                                 |          |
+| End Crystal Beam | true               |                                                 | 1.21+    |
+| Item Frame       | true               |                                                 |          |
+| Painting         | true               |                                                 |          |
+| Player Cape      | true               |                                                 | 1.21+    |
+| Player Armor     | true               |                                                 | 1.21+    |
+| Beacon Beam      | false              | Enabling transparency causes render layer bugs. |          |
 
 If you want another entity to be supported by this mod, please let me know on [Discord](https://discord.gg/aqXkvbJ) or [GitHub Issues](https://github.com/Trikzon/transparent/issues).
 
 ## Configuration
-| Entity       | Enabled By Default | Reason                                          | Versions |
-|--------------|--------------------|-------------------------------------------------|----------|
-| Armor Stand  | true               |                                                 | 1.19.4+  |
-| End Crystal  | true               |                                                 |          |
-| Item Frame   | true               |                                                 |          |
-| Painting     | true               |                                                 |          |
-| Player Cape  | true               |                                                 | 1.21+    |
-| Player Armor | true               |                                                 | 1.21+    |
-| Beacon Beam  | false              | Enabling transparency causes render layer bugs. |          |
-
 In order to change the default configuration, paste the following json file content into a file in your resource pack located at `/assets/transparent/transparent.json`.
 
 ```json
@@ -39,6 +33,7 @@ In order to change the default configuration, paste the following json file cont
     "armor_stand": true,
     "beacon_beam": false,
     "end_crystal": true,
+    "end_crystal_beam": true,
     "item_frame": true,
     "painting": true,
     "player_cape": true,

@@ -28,6 +28,8 @@ public class TransparentConfig {
     public boolean beaconBeam = false;
     @SerializedName("end_crystal")
     public boolean endCrystal = true;
+    @SerializedName("end_crystal_beam")
+    public boolean endCrystalBeam = true;
     @SerializedName("item_frame")
     public boolean itemFrame = true;
     public boolean painting = true;
@@ -41,6 +43,7 @@ public class TransparentConfig {
         result.armorStand = false;
         result.beaconBeam = false;
         result.endCrystal = false;
+        result.endCrystalBeam = false;
         result.itemFrame = false;
         result.painting = false;
         result.playerArmor = false;
@@ -52,6 +55,7 @@ public class TransparentConfig {
         this.armorStand |= other.armorStand;
         this.beaconBeam |= other.beaconBeam;
         this.endCrystal |= other.endCrystal;
+        this.endCrystalBeam |= other.endCrystalBeam;
         this.itemFrame |= other.itemFrame;
         this.painting |= other.painting;
         this.playerArmor |= other.playerArmor;

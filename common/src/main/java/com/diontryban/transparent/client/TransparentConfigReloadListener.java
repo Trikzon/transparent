@@ -67,11 +67,14 @@ public class TransparentConfigReloadListener implements PreparableReloadListener
                 Transparent.CONFIG = new TransparentConfig();
             }
 
-            Transparent.LOG.info("Armor Stand transparency set to: " + Transparent.CONFIG.armorStand);
-            Transparent.LOG.info("Beacon Beam transparency set to: " + Transparent.CONFIG.beaconBeam);
-            Transparent.LOG.info("End Crystal transparency set to: " + Transparent.CONFIG.endCrystal);
-            Transparent.LOG.info("Item Frame transparency set to: " + Transparent.CONFIG.itemFrame);
-            Transparent.LOG.info("Painting transparency set to: " + Transparent.CONFIG.painting);
+            Transparent.LOG.info("Armor Stand transparency set to: {}", Transparent.CONFIG.armorStand);
+            Transparent.LOG.info("Beacon Beam transparency set to: {}", Transparent.CONFIG.beaconBeam);
+            Transparent.LOG.info("End Crystal transparency set to: {}", Transparent.CONFIG.endCrystal);
+            Transparent.LOG.info("End Crystal Beam transparency set to: {}", Transparent.CONFIG.endCrystalBeam);
+            Transparent.LOG.info("Item Frame transparency set to: {}", Transparent.CONFIG.itemFrame);
+            Transparent.LOG.info("Painting transparency set to: {}", Transparent.CONFIG.painting);
+            Transparent.LOG.info("Player Armor transparency set to: {}", Transparent.CONFIG.playerArmor);
+            Transparent.LOG.info("Player Cape transparency set to: {}", Transparent.CONFIG.playerCape);
         });
     }
 

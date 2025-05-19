@@ -79,6 +79,17 @@ public class TransparentRenderTypes extends RenderStateShard {
         return RenderTypeAccessor.callCreate("entity_cutout_no_cull", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, state);
     });
 
+    private static final Function<ResourceLocation, RenderType> ENTITY_SMOOTH_CUTOUT = Util.memoize((textureLoc) -> {
+        RenderType.CompositeState state = RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_ENTITY_SMOOTH_CUTOUT_SHADER)
+                .setTextureState(new RenderStateShard.TextureStateShard(textureLoc, false, false))
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setCullState(NO_CULL)
+                .setLightmapState(LIGHTMAP)
+                .createCompositeState(true);
+        return RenderTypeAccessor.callCreate("entity_smooth_cutout", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, false, true, state);
+    });
+
     public static RenderType armorCutoutNoCull(ResourceLocation textureLoc) {
         return ARMOR_CUTOUT_NO_CULL.apply(textureLoc);
     }
@@ -89,6 +100,10 @@ public class TransparentRenderTypes extends RenderStateShard {
 
     public static RenderType entityCutoutNoCull(ResourceLocation textureLoc) {
         return ENTITY_CUTOUT_NO_CULL.apply(textureLoc);
+    }
+
+    public static RenderType entitySmoothCutout(ResourceLocation textureLoc) {
+        return ENTITY_SMOOTH_CUTOUT.apply(textureLoc);
     }
 
     // Tries to get the texture from a RenderType by using mixin accessors and access widener hacky-ness.
