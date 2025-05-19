@@ -13,9 +13,10 @@ Officially supports [Paintings++ Mod](https://www.curseforge.com/minecraft/mc-mo
 
 ## Supported Entities
 - Armor Stand (1.19.4+)
-- Painting
-- Item Frame
+- Cape
 - End Crystal
+- Item Frame
+- Painting
 - Beacon Beam (disabled by default)
 
 If you want another entity to be supported by this mod, please let me know on [Discord](https://discord.gg/aqXkvbJ) or [GitHub Issues](https://github.com/Trikzon/transparent/issues).
@@ -24,9 +25,10 @@ If you want another entity to be supported by this mod, please let me know on [D
 | Entity      | Enabled By Default | Reason                                          | Versions |
 |-------------|--------------------|-------------------------------------------------|----------|
 | Armor Stand | true               |                                                 | 1.19.4+  |
-| Painting    | true               |                                                 |          |
-| Item Frame  | true               |                                                 |          |
+| Cape        | true               |                                                 | 1.21+    |
 | End Crystal | true               |                                                 |          |
+| Item Frame  | true               |                                                 |          |
+| Painting    | true               |                                                 |          |
 | Beacon Beam | false              | Enabling transparency causes render layer bugs. |          |
 
 In order to change the default configuration, paste the following json file content into a file in your resource pack located at `/assets/transparent/transparent.json`.
@@ -34,6 +36,7 @@ In order to change the default configuration, paste the following json file cont
 ```json
 {
     "armor_stand": true,
+    "cape": true,
     "beacon_beam": false,
     "end_crystal": true,
     "item_frame": true,
@@ -43,7 +46,7 @@ In order to change the default configuration, paste the following json file cont
 
 ---
 
-Report any issues on [GitHub](https://github.com/Trikzon/transparent/issues). Chat on [Discord](https://discord.gg/aUwZKagWh2) in the `#mc-mods` channel.
+Report any issues on [GitHub](https://github.com/Trikzon/transparent/issues). Chat on [Discord](https://discord.gg/aUwZKagWh2) in the `#transparent` channel.
 
 Support the development of my mods on [Ko-fi](https://ko-fi.com/X7X8D56YI).
 

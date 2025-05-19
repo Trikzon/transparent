@@ -26,6 +26,7 @@ public class TransparentConfig {
     public boolean armorStand = true;
     @SerializedName("beacon_beam")
     public boolean beaconBeam = false;
+    public boolean cape = true;
     @SerializedName("end_crystal")
     public boolean endCrystal = true;
     @SerializedName("item_frame")
@@ -36,6 +37,7 @@ public class TransparentConfig {
         var result = new TransparentConfig();
         result.armorStand = false;
         result.beaconBeam = false;
+        result.cape = false;
         result.endCrystal = false;
         result.itemFrame = false;
         result.painting = false;
@@ -45,6 +47,7 @@ public class TransparentConfig {
     public void or(TransparentConfig other) {
         this.armorStand |= other.armorStand;
         this.beaconBeam |= other.beaconBeam;
+        this.cape |= other.cape;
         this.endCrystal |= other.endCrystal;
         this.itemFrame |= other.itemFrame;
         this.painting |= other.painting;

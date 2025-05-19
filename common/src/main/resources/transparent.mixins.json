@@ -14,6 +14,7 @@
         "client.accessor.TextureStateShardAccessor",
         "client.ArmorStandRendererMixin",
         "client.BeaconRendererMixin",
+        "client.CapeLayerMixin",
         "client.EndCrystalRendererMixin",
         "client.ItemFrameRendererMixin",
         "client.PaintingRendererMixin",

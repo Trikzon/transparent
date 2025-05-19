@@ -1,18 +1,19 @@
 # Changelog
 ## v21.0.0
-- Updated to MC 1.21.
+- Update to MC 1.21.
+- Make capes support transparency.
 
 ## v20.6.1
 - Correctly tag the files as MC 1.20.6 when publishing
 
 ## v20.6.0
-- Updated to MC 1.20.6.
+- Update to MC 1.20.6.
 
 ## v20.4.1
-- Updated to MC 1.20.4.
+- Update to MC 1.20.4.
 
 ## v20.4.0
-- Updated to MC 1.20.4.
+- Update to MC 1.20.4.
 
 ## v20.2.0
 - Update to MC 1.20.2.
