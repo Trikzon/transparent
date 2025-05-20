@@ -17,7 +17,6 @@
         "client.CapeLayerMixin",
         "client.EndCrystalRendererMixin",
         "client.EnderDragonRendererMixin",
-        "client.HumanoidArmorLayerMixin",
         "client.ItemFrameRendererMixin",
         "client.PaintingRendererMixin",
         "client.TextureAtlasMixin"

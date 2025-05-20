@@ -1,4 +1,7 @@
 # Changelog
+## v21.0.1
+- Fix mixin crash on Fabric.
+
 ## v21.0.0
 - Update to MC 1.21.
 - Make player armor support transparency [#9](https://github.com/Trikzon/transparent/issues/9).
