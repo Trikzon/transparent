@@ -1,0 +1,10 @@
+{
+  "armor_stand": true,
+  "beacon_beam": true,
+  "end_crystal": true,
+  "end_crystal_beam": true,
+  "item_frame": true,
+  "painting": true,
+  "player_cape": true,
+  "player_armor": true
+}
