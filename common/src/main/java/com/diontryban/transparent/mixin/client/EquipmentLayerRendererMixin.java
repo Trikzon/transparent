@@ -21,27 +21,23 @@ package com.diontryban.transparent.mixin.client;
 
 import com.diontryban.transparent.Transparent;
 import com.diontryban.transparent.client.render.TransparentRenderTypes;
-import net.minecraft.client.model.HumanoidModel;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(HumanoidArmorLayer.class)
-public abstract class HumanoidArmorLayerMixinFabric<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T, M> {
-    public HumanoidArmorLayerMixinFabric(RenderLayerParent<T, M> renderer) {
-        super(renderer);
-    }
-
-    @Redirect(method = "renderModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/RenderType;armorCutoutNoCull(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;"))
-    public RenderType redirectArmorCutoutNoCull(ResourceLocation location) {
+@Mixin(EquipmentLayerRenderer.class)
+public abstract class EquipmentLayerRendererMixin {
+    @WrapOperation(
+            method = "renderLayers(Lnet/minecraft/world/item/equipment/EquipmentModel$LayerType;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/client/model/Model;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/resources/ResourceLocation;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/RenderType;armorCutoutNoCull(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;")
+    )
+    private RenderType wrapArmorCutoutNoCullInRenderLayers(ResourceLocation location, Operation<RenderType> original) {
         return Transparent.CONFIG.playerArmor ?
                 TransparentRenderTypes.armorCutoutNoCull(location) :
-                RenderType.armorCutoutNoCull(location);
+                original.call(location);
     }
 }

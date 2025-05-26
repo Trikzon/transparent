@@ -20,10 +20,7 @@
 package com.diontryban.transparent.mixin.client;
 
 import com.diontryban.transparent.client.TransparentClient;
-import net.minecraft.client.renderer.texture.AbstractTexture;
-import net.minecraft.client.renderer.texture.SpriteLoader;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.Tickable;
+import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TextureAtlas.class)
-public abstract class TextureAtlasMixin extends AbstractTexture implements Tickable {
+public abstract class TextureAtlasMixin extends AbstractTexture implements Dumpable, Tickable {
     @Shadow @Final private ResourceLocation location;
 
     @Inject(method = "upload", at = @At("TAIL"))

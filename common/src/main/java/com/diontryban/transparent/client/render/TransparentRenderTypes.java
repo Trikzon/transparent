@@ -29,6 +29,7 @@ import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.TriState;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -41,10 +42,10 @@ public class TransparentRenderTypes extends RenderStateShard {
         super(null, null, null);
     }
 
-    private static final Function<ResourceLocation, RenderType> ARMOR_CUTOUT_NO_CULL = Util.memoize((textureLoc) -> {
+    private static final Function<ResourceLocation, RenderType> ARMOR_CUTOUT_NO_CULL = Util.memoize((location) -> {
         RenderType.CompositeState compositeState = RenderType.CompositeState.builder()
                 .setShaderState(RENDERTYPE_ARMOR_CUTOUT_NO_CULL_SHADER)
-                .setTextureState(new RenderStateShard.TextureStateShard(textureLoc, false, false))
+                .setTextureState(new RenderStateShard.TextureStateShard(location, TriState.FALSE, false))
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP)
@@ -55,10 +56,10 @@ public class TransparentRenderTypes extends RenderStateShard {
         return RenderTypeAccessor.callCreate("armor_cutout_no_cull", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, compositeState);
     });
 
-    private static final Function<ResourceLocation, RenderType> ENTITY_SOLID = Util.memoize((textureLoc) -> {
+    private static final Function<ResourceLocation, RenderType> ENTITY_SOLID = Util.memoize((location) -> {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
                 .setShaderState(RENDERTYPE_ENTITY_SOLID_SHADER)
-                .setTextureState(new TextureStateShard(textureLoc, false, false))
+                .setTextureState(new TextureStateShard(location, TriState.FALSE, false))
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP)
@@ -67,10 +68,22 @@ public class TransparentRenderTypes extends RenderStateShard {
         return RenderTypeAccessor.callCreate("entity_solid", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, state);
     });
 
-    private static final Function<ResourceLocation, RenderType> ENTITY_CUTOUT_NO_CULL = Util.memoize((textureLoc) -> {
+    private static final Function<ResourceLocation, RenderType> ENTITY_SOLID_Z_OFFSET_FORWARD = Util.memoize((location) -> {
+        RenderType.CompositeState state = RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_ENTITY_SOLID_SHADER)
+                .setTextureState(new RenderStateShard.TextureStateShard(location, TriState.FALSE, false))
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .setLayeringState(VIEW_OFFSET_Z_LAYERING_FORWARD)
+                .createCompositeState(true);
+        return RenderTypeAccessor.callCreate("entity_solid_z_offset_forward", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, state);
+    });
+
+    private static final Function<ResourceLocation, RenderType> ENTITY_CUTOUT_NO_CULL = Util.memoize((location) -> {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
                 .setShaderState(RENDERTYPE_ENTITY_CUTOUT_SHADER)
-                .setTextureState(new TextureStateShard(textureLoc, false, false))
+                .setTextureState(new TextureStateShard(location, TriState.FALSE, false))
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP)
@@ -79,10 +92,10 @@ public class TransparentRenderTypes extends RenderStateShard {
         return RenderTypeAccessor.callCreate("entity_cutout_no_cull", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, state);
     });
 
-    private static final Function<ResourceLocation, RenderType> ENTITY_SMOOTH_CUTOUT = Util.memoize((textureLoc) -> {
+    private static final Function<ResourceLocation, RenderType> ENTITY_SMOOTH_CUTOUT = Util.memoize((location) -> {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
                 .setShaderState(RENDERTYPE_ENTITY_SMOOTH_CUTOUT_SHADER)
-                .setTextureState(new RenderStateShard.TextureStateShard(textureLoc, false, false))
+                .setTextureState(new RenderStateShard.TextureStateShard(location, TriState.FALSE, false))
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP)
@@ -90,20 +103,24 @@ public class TransparentRenderTypes extends RenderStateShard {
         return RenderTypeAccessor.callCreate("entity_smooth_cutout", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, false, true, state);
     });
 
-    public static RenderType armorCutoutNoCull(ResourceLocation textureLoc) {
-        return ARMOR_CUTOUT_NO_CULL.apply(textureLoc);
+    public static RenderType armorCutoutNoCull(ResourceLocation location) {
+        return ARMOR_CUTOUT_NO_CULL.apply(location);
     }
 
-    public static RenderType entitySolid(ResourceLocation textureLoc) {
-        return ENTITY_SOLID.apply(textureLoc);
+    public static RenderType entitySolid(ResourceLocation location) {
+        return ENTITY_SOLID.apply(location);
     }
 
-    public static RenderType entityCutoutNoCull(ResourceLocation textureLoc) {
-        return ENTITY_CUTOUT_NO_CULL.apply(textureLoc);
+    public static RenderType entitySolidZOffsetForward(ResourceLocation location) {
+        return ENTITY_SOLID_Z_OFFSET_FORWARD.apply(location);
     }
 
-    public static RenderType entitySmoothCutout(ResourceLocation textureLoc) {
-        return ENTITY_SMOOTH_CUTOUT.apply(textureLoc);
+    public static RenderType entityCutoutNoCull(ResourceLocation location) {
+        return ENTITY_CUTOUT_NO_CULL.apply(location);
+    }
+
+    public static RenderType entitySmoothCutout(ResourceLocation location) {
+        return ENTITY_SMOOTH_CUTOUT.apply(location);
     }
 
     // Tries to get the texture from a RenderType by using mixin accessors and access widener hacky-ness.

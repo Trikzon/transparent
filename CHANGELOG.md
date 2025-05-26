@@ -1,4 +1,7 @@
 # Changelog
+## v21.2.0
+- Update to MC 1.21.2.
+
 ## v21.1.0
 - Update to MC 1.21.1.
 

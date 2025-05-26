@@ -4,9 +4,7 @@
     "package": "com.diontryban.transparent.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [ ],
-    "client": [
-        "client.HumanoidArmorLayerMixinNeoForge"
-    ],
+    "client": [ ],
     "server": [ ],
     "injectors": {
         "defaultRequire": 1

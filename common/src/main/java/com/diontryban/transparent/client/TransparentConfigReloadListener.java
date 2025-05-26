@@ -39,10 +39,8 @@ import java.util.concurrent.Executor;
 public class TransparentConfigReloadListener implements PreparableReloadListener {
     @Override
     public @NotNull CompletableFuture<Void> reload(
-            @NotNull PreparationBarrier preparationBarrier,
+            PreparationBarrier preparationBarrier,
             @NotNull ResourceManager resourceManager,
-            @NotNull ProfilerFiller profilerFiller,
-            @NotNull ProfilerFiller profilerFiller1,
             @NotNull Executor executor,
             @NotNull Executor executor1
     ) {
