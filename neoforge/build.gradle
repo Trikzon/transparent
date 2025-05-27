@@ -30,7 +30,7 @@ neoForge {
         }
 
         data {
-            data()
+            clientData()
         }
 
         server {

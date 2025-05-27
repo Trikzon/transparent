@@ -51,11 +51,11 @@ public abstract class CapeLayerMixin extends RenderLayer<PlayerRenderState, Play
     }
 
     // Uncomment code below to give all players a debug cape.
-//    @WrapOperation(
-//            method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/PlayerRenderState;FF)V",
-//            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/PlayerSkin;capeTexture()Lnet/minecraft/resources/ResourceLocation;")
-//    )
-//    public ResourceLocation redirectCapeTextureInRender(PlayerSkin instance, Operation<ResourceLocation> original) {
-//        return ResourceLocation.fromNamespaceAndPath(Transparent.MOD_ID, "textures/cape.png");
-//    }
+    @WrapOperation(
+            method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/PlayerRenderState;FF)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/PlayerSkin;capeTexture()Lnet/minecraft/resources/ResourceLocation;")
+    )
+    public ResourceLocation redirectCapeTextureInRender(PlayerSkin instance, Operation<ResourceLocation> original) {
+        return ResourceLocation.fromNamespaceAndPath(Transparent.MOD_ID, "textures/cape.png");
+    }
 }
