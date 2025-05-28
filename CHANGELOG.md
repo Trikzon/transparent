@@ -1,4 +1,7 @@
 # Changelog
+## v21.4.1
+- Remove accidentally left in debug cape override.
+
 ## v21.4.0
 - Update to MC 1.21.4.
 
