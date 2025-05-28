@@ -9,6 +9,7 @@
     "client": [
         "client.accessor.CompositeRenderTypeAccessor",
         "client.accessor.CompositeStateAccessor",
+        "client.accessor.RenderPipelinesAccessor",
         "client.accessor.RenderTypeAccessor",
         "client.accessor.TextureAtlasHolderAccessor",
         "client.accessor.TextureStateShardAccessor",

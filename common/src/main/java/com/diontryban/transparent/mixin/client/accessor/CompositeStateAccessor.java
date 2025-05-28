@@ -23,9 +23,24 @@ import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(RenderType.CompositeState.class)
 public interface CompositeStateAccessor {
+    @Invoker("<init>")
+    static RenderType.CompositeState callConstructor(
+            RenderStateShard.EmptyTextureStateShard textureState,
+            RenderStateShard.LightmapStateShard lightmapState,
+            RenderStateShard.OverlayStateShard overlayState,
+            RenderStateShard.LayeringStateShard layeringState,
+            RenderStateShard.OutputStateShard outputState,
+            RenderStateShard.TexturingStateShard texturingState,
+            RenderStateShard.LineStateShard lineState,
+            RenderType.OutlineProperty outlineProperty
+    ) {
+        throw new AssertionError();
+    }
+
     @Accessor
     RenderStateShard.EmptyTextureStateShard getTextureState();
 }

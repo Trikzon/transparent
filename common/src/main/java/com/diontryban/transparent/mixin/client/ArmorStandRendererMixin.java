@@ -67,8 +67,8 @@ public abstract class ArmorStandRendererMixin extends LivingEntityRenderer<Armor
                 transparent$superGetRenderType = true;
                 RenderType superType = this.getRenderType(renderState, true, false, appearsGlowing);
                 if (superType != null) {
-                    ResourceLocation textureLoc = TransparentRenderTypes.getTexture(superType, this.getTextureLocation(renderState));
-                    cir.setReturnValue(TransparentRenderTypes.entityCutoutNoCull(textureLoc));
+                    ResourceLocation texture = TransparentRenderTypes.getTexture(superType, this.getTextureLocation(renderState));
+                    cir.setReturnValue(TransparentRenderTypes.entityCutoutNoCull(texture, false));
                 }
             }
         }
